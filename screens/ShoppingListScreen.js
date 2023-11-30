@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, ImageBackground } from "react-native";
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
@@ -47,11 +47,42 @@ const listings = [
     price: 10,
     image: "",
   },
+  {
+    id: 8,
+    title: "Pistolet a Silex",
+    price: 30,
+    image: "",
+  },
+  {
+    id: 9,
+    title: "Coffre de stockage",
+    price: 20,
+    image: "",
+  },
+  {
+    id: 10,
+    title: "Voile du légendaire Warsmith Ténébreux",
+    price: 265000,
+    image: "",
+  },
+  {
+    id: 11,
+    title: "cr-rhum",
+    price: 2,
+    image: "",
+  },
+  {
+    id: 12,
+    title: "mangue sur une fourchette",
+    price: 10,
+    image: "",
+  },
 ];
 
 function ShoppingListScreen({navigation}) {
   return (
-    <Screen style={styles.screen}>
+    <Screen>
+      <ImageBackground source={require("../assets/bg-moche.png")}>
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
@@ -59,11 +90,12 @@ function ShoppingListScreen({navigation}) {
         renderItem={({ item }) => (
           <Card
             title={item.title}
-            subTitle={"S" + item.price}
+            subTitle={item.price}
             image={item.image}
           />
         )}
       />
+      </ImageBackground>
     </Screen>
   );
 }
@@ -72,5 +104,8 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: colors.light,
   },
+  card: {
+    alignItems: 'center'
+  }
 });
 export default ShoppingListScreen;

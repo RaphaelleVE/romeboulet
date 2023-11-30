@@ -2,51 +2,65 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AccountNavigator from "./AccountNavigator";
-import FeedNavigator from "./FeedNavigator";
-import ListingEditScreen from "../screens/ListingEditScreen";
+import ShoppingNavigator from "./ShoppingNavigator";
+import ProfileScreen from "../screens/ProfileScreen";
+import CartScreen from "../screens/CartScreen";
+
+
 import NewListingButton from "./NewListingButton";
 import routes from "./routes";
+import colors from "../config/colors";
+
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => (
   <Tab.Navigator>
+  
     <Tab.Screen
-      name="Feed"
-      component={FeedNavigator}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="home" color={color} size={size} />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="ListingEdit"
-      component={ListingEditScreen}
+      name="ProfileScreen"
+      component={ProfileScreen}
       options={({ navigation }) => ({
         tabBarButton: () => (
           <NewListingButton
-            onPress={() => navigation.navigate(routes.LISTING_EDIT)}
+            onPress={() => navigation.navigate(routes.PROFILESCREEN)}
           />
         ),
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons
-            name="plus-circle"
-            color={color}
+            name="cart-plus"
+            color={colors.mainBrown}
             size={size}
           />
         ),
       })}
     />
     <Tab.Screen
-      name="Account"
-      component={AccountNavigator}
+      name="Shopping"
+      component={ShoppingNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="account" color={color} size={size} />
         ),
       }}
+    />
+      <Tab.Screen
+      name="CartScreen"
+      component={CartScreen}
+      options={({ navigation }) => ({
+        tabBarButton: () => (
+          <NewListingButton
+            onPress={() => navigation.navigate(routes.CARTSCREEN)}
+          />
+        ),
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons
+            name="cart-plus"
+            color={colors.mainBrown}
+            size={size}
+          />
+        ),
+      })}
     />
   </Tab.Navigator>
 );

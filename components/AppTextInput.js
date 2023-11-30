@@ -1,29 +1,37 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import { useFonts } from "expo-font";
 import defaultStyles from "../config/styles";
 import colors from "../config/colors";
 
 
 function AppTextInput({ icon, width = "100%", ...otherProps }) {
-  return (
-    <View style={[styles.container, { width }]}>
-      {icon && (
-        <MaterialCommunityIcons
-          name={icon}
-          size={20}
-          color={defaultStyles.colors.medium}
-          style={styles.icon}
+  const [loaded] = useFonts({
+    Marhey: require('../assets/fonts/Marhey-Light.ttf')
+  })
+
+  if(!loaded) {return null}
+
+  if (loaded) {
+    return (
+      <View style={[styles.container, { width }]}>
+        {icon && (
+          <MaterialCommunityIcons
+            name={icon}
+            size={20}
+            color={defaultStyles.colors.medium}
+            style={styles.icon}
+          />
+        )}
+        <TextInput
+          placeholderTextColor={defaultStyles.colors.medium}
+          style={styles.text}
+          {...otherProps}
         />
-      )}
-      <TextInput
-        placeholderTextColor={defaultStyles.colors.medium}
-        style={defaultStyles.text}
-        {...otherProps}
-      />
-    </View>
-  );
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,6 +45,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  text: {
+    fontFamily: 'Marhey',
+    fontSize: 16,
+    flex: 1
   },
 });
 

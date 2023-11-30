@@ -45,7 +45,7 @@ function LoginScreen({navigation}) {
         />
         {/* <SubmitButton title="Login" /> */}
         <AppButton title="Login"
-        onPress={() => navigation.navigate(routes.SHOPPINGLISTSCREEN)}
+        onPress={() => navigation.navigate(routes.MAINPAGESSCREEN )}
         />
         <AppButton 
         title="Sign up"

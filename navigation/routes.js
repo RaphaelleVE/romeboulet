@@ -1,5 +1,10 @@
 export default Object.freeze({
-  LOGIN: "Login",
-SIGNUP: "Signup",
-SHOPPINGLISTSCREEN: "ShoppingListScreen"
+  LOGIN: "LoginScreen",
+SIGNUP: "SignupScreen",
+SHOPPINGLISTSCREEN: "ShoppingListScreen",
+CARTSCREEN: "CartScreen",
+MAINPAGESSCREEN: "MainPagesScreen",
+PROFILESCREEN: "ProfileScreen",
+PRODUCTDETAILSCREEN: "ProductDetailScreen",
+
 });
