@@ -67,7 +67,7 @@ const listings = [
   },
   {
     id: 11,
-    title: "cr-rhum",
+    title: "cd-rhum",
     price: 2,
     image: "",
   },
@@ -84,6 +84,7 @@ function ShoppingListScreen({navigation}) {
     <Screen>
       <ImageBackground source={require("../assets/bg-moche.png")}>
       <FlatList
+      style={styles.screen}
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
         // toString() very important
@@ -102,10 +103,10 @@ function ShoppingListScreen({navigation}) {
 const styles = StyleSheet.create({
   screen: {
     padding: 20,
-    backgroundColor: colors.light,
   },
   card: {
     alignItems: 'center'
+
   }
 });
 export default ShoppingListScreen;

@@ -10,10 +10,15 @@ function Card({ image, subTitle, title }) {
     <View style={styles.card} >
       <View style={styles.detailContainer}>
         <AppText style={styles.text}>{title}</AppText>
-        <AppText color="secondary">{subTitle}</AppText>
+        <Image src="test"/> 
       </View>
+      <View style={styles.subTitleContainer}>
+      <AppText color="secondary">{subTitle}</AppText>
+      </View>
+      <View style={styles.button}>
       <AppButton title="Ajouter au Panier" color="mainBrown"
-        textColor="mainWhite"></AppButton>
+        textColor="mainWhite" styleParam={styles.buttonStyles}></AppButton>
+        </View>
     </View>
   );
 }
@@ -21,7 +26,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 25,
     marginBottom: 20,
-    backgroundColor: "mainWhite",
+    backgroundColor: "white",
     overflow: "hidden",
   },
   cardImage: {
@@ -29,10 +34,34 @@ const styles = StyleSheet.create({
     height: 200,
   },
   detailContainer: {
-    padding: 20,
+    paddingTop: 20,
+    paddingLeft: 20,
+    borderColor: "black",
+    borderWidth: 5,
+    flexDirection: "row",
+  },
+  subTitleContainer: {
+    paddingRight: 20,
+    paddingLeft: 20,
+    borderColor: "black",
+    borderWidth: 5,
+    flexDirection: "row",
   },
   text: {
     marginBottom: 7,
+  },
+  button: {
+    alignItems: "center",
+    alignContent:"center",
+  },
+  buttonStyles: {
+    backgroundColor: colors.mainBrown,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    width: "90%",
+    marginVertical: 10,
   },
 });
 export default Card;
