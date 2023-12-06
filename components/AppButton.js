@@ -37,6 +37,15 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontFamily: 'Marhey',
   },
+  singleLine : {
+    backgroundColor: colors.mainBrown,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    width: "10%",
+    marginVertical: 10,
+  }
 });
 
 export default AppButton;
