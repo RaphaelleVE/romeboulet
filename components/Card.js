@@ -10,10 +10,11 @@ function Card({ image, subTitle, title }) {
     <View style={styles.card} >
       <View style={styles.detailContainer}>
         <AppText style={styles.text}>{title}</AppText>
-        <Image src="test"/> 
+        <Image style={styles.image} source={image} />
       </View>
       <View style={styles.subTitleContainer}>
       <AppText color="secondary">{subTitle}</AppText>
+      <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
       </View>
       <View style={styles.button}>
       <AppButton title="Ajouter au Panier" color="mainBrown"
@@ -36,19 +37,18 @@ const styles = StyleSheet.create({
   detailContainer: {
     paddingTop: 20,
     paddingLeft: 20,
-    borderColor: "black",
-    borderWidth: 5,
     flexDirection: "row",
   },
   subTitleContainer: {
     paddingRight: 20,
     paddingLeft: 20,
-    borderColor: "black",
-    borderWidth: 5,
     flexDirection: "row",
   },
   text: {
     marginBottom: 7,
+    maxWidth: 200,
+    minWidth: 200,
+    textAlignVertical: "center"
   },
   button: {
     alignItems: "center",
@@ -63,5 +63,15 @@ const styles = StyleSheet.create({
     width: "90%",
     marginVertical: 10,
   },
+  doubloon: {
+    width:25,
+    height:25
+  },
+  image: {
+    width: 120,
+    height: 120,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  }
 });
 export default Card;
