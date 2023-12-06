@@ -28,9 +28,9 @@ function ProfileScreen({navigation}) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <SingleLineForm>
+        <SingleLineForm/>
+        <SingleLineForm/>
 
-        </SingleLineForm>
 
         </Form>
       </ImageBackground>
