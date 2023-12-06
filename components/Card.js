@@ -7,12 +7,13 @@ import AppText from "./AppText";
 
 function Card({ image, subTitle, title }) {
   return (
-    <View style={styles.card}>
+    <View style={styles.card} >
       <View style={styles.detailContainer}>
         <AppText style={styles.text}>{title}</AppText>
         <AppText color="secondary">{subTitle}</AppText>
       </View>
-      <AppButton color="secondary">"Ajouter au Panier"</AppButton>
+      <AppButton title="Ajouter au Panier" color="mainBrown"
+        textColor="mainWhite"></AppButton>
     </View>
   );
 }
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 25,
     marginBottom: 20,
-    backgroundColor: colors.white,
+    backgroundColor: "mainWhite",
     overflow: "hidden",
   },
   cardImage: {
