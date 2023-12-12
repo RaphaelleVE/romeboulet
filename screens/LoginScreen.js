@@ -6,7 +6,7 @@ import Form from "../components/forms/Form";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
 import { auth } from "../firebaseConfig";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import AppFormField from "../components/forms/FormField";
 import InputContainer from "../components/forms/InputContainer";
 import ButtonContainer from "../components/forms/ButtonContainer";

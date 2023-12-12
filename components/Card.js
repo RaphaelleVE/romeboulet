@@ -1,27 +1,43 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import AppText from "./AppText";
+import routes from "../navigation/routes";
 
-function Card({ image, subTitle, title }) {
+
+const handlePress = () => {
+  // Your logic for onPress goes here
+  console.log('TouchableOpacity pressed!');
+};
+
+function Card({ onPress, image, subTitle, title, description }) {
   return (
+    <TouchableOpacity
+    onPress={onPress}>
     <View style={styles.card} >
       <View style={styles.detailContainer}>
         <AppText style={styles.text}>{title}</AppText>
-        <AppText color="secondary">{subTitle}</AppText>
+        <Image style={styles.image} source={image} />
       </View>
-      <AppButton title="Ajouter au Panier" color="mainBrown"
-        textColor="mainWhite"></AppButton>
+      <View style={styles.subTitleContainer}>
+      <AppText color="secondary">{subTitle}</AppText>
+      <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
+      </View>
+      <View style={styles.button}>
+      <AppButton customTitle="Ajouter au Panier" color="mainBrown"
+        textColor="mainWhite" styleParam={styles.buttonStyles}></AppButton>
+        </View>
     </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   card: {
     borderRadius: 25,
     marginBottom: 20,
-    backgroundColor: "mainWhite",
+    backgroundColor: "white",
     overflow: "hidden",
   },
   cardImage: {
@@ -29,10 +45,44 @@ const styles = StyleSheet.create({
     height: 200,
   },
   detailContainer: {
-    padding: 20,
+    paddingTop: 20,
+    paddingLeft: 20,
+    flexDirection: "row",
+  },
+  subTitleContainer: {
+    paddingRight: 20,
+    paddingLeft: 20,
+    flexDirection: "row",
   },
   text: {
     marginBottom: 7,
+    maxWidth: 200,
+    minWidth: 200,
+    textAlignVertical: "center",
+    fontFamily: 'Marhey',
   },
+  button: {
+    alignItems: "center",
+    alignContent:"center",
+  },
+  buttonStyles: {
+    backgroundColor: colors.mainBrown,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
+    width: "90%",
+    marginVertical: 10,
+  },
+  doubloon: {
+    width:25,
+    height:25
+  },
+  image: {
+    width: 120,
+    height: 120,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  }
 });
 export default Card;

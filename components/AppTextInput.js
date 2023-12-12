@@ -6,7 +6,7 @@ import defaultStyles from "../config/styles";
 import colors from "../config/colors";
 
 
-function AppTextInput({ icon, width = "100%", ...otherProps }) {
+function AppTextInput({ icon, width = "100%", styleParam="default" , ...otherProps }) {
   const [loaded] = useFonts({
     Marhey: require('../assets/fonts/Marhey-Light.ttf')
   })
@@ -15,7 +15,7 @@ function AppTextInput({ icon, width = "100%", ...otherProps }) {
 
   if (loaded) {
     return (
-      <View style={[styles.container, { width }]}>
+      <View style={[styles.container, { width },styleParam]}>
         {icon && (
           <MaterialCommunityIcons
             name={icon}
