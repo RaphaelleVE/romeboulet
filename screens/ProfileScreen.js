@@ -1,19 +1,14 @@
 import React from "react";
 import {StyleSheet, Image, ImageBackground } from "react-native";
 import Form from "../components/forms/Form";
-import FormField from "../components/forms/FormField";
 import SingleLineForm from "../components/forms/SingleLineForm";
-
 import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
-
 import * as Yup from "yup";
 
-
-
 const validationSchema = Yup.object().shape({
-  nickname: Yup.string().required().min(2).max(10).label("Pseudo"),
   email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(6).label("Password"),
 });
 
 function ProfileScreen({navigation}) {
@@ -51,6 +46,7 @@ function ProfileScreen({navigation}) {
     </Screen>
   );
 }
+
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -67,7 +63,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   profilePic: {
     width: 200,
@@ -77,6 +72,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     borderRadius: 100
   }
-
 });
 export default ProfileScreen;
