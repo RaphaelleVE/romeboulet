@@ -5,6 +5,9 @@ import SingleLineForm from "../components/forms/SingleLineForm";
 import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
+import routes from "../navigation/routes";
+import { auth } from "../firebaseConfig";
+import { signOut } from "firebase/auth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -12,6 +15,12 @@ const validationSchema = Yup.object().shape({
 });
 
 function ProfileScreen({navigation}) {
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => navigation.navigate(routes.LOGIN))
+      .catch(error => alert(error.message))
+  }
+
   return (
     <Screen>
       <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
@@ -40,8 +49,12 @@ function ProfileScreen({navigation}) {
          textContentType="emailAddress"
         />
         </Form>
-        <AppButton customTitle="Deconnexion" 
-        onPress={() => navigation.goBack()}/>
+        <AppButton 
+          title="Logout"
+          color="primary"
+          textColor="mainWhite"
+          onPress={handleLogout}
+        />
       </ImageBackground>
     </Screen>
   );

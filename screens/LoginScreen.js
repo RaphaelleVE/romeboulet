@@ -11,12 +11,10 @@ import AppFormField from "../components/forms/FormField";
 import InputContainer from "../components/forms/InputContainer";
 import ButtonContainer from "../components/forms/ButtonContainer";
 
-
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(6).label("Password"),
 });
-
 
 function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -25,6 +23,8 @@ function LoginScreen({navigation}) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
+        setEmail('');
+        setPassword('');
         () => navigation.navigate(routes.MAINPAGESSCREEN);
       }
     });
@@ -41,11 +41,6 @@ function LoginScreen({navigation}) {
       })
       .catch(error => alert(error.message))
   }
-
-  // const handleLogout = () => {
-  //   signOut(auth)
-  //     .catch(error => alert(error.message))
-  // }
 
   return (
     <Screen >
@@ -81,10 +76,6 @@ function LoginScreen({navigation}) {
               title="Login"
               onPress={handleLogin}
             />
-            {/* <AppButton 
-              title="Logout"
-              onPress={handleLogout}
-            /> */}
             <AppButton 
               title="Sign up"
               color="mainWhite"

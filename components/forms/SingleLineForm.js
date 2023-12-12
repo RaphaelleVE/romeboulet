@@ -1,17 +1,12 @@
 import React from "react";
 import { useFormikContext } from "formik";
-
 import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 import AppTextInput from "../AppTextInput";
 import ErrorMessage from "./ErrorMessage";
 import { FaSave } from "react-icons/fa";
 import colors from "../../config/colors";
-import SubmitButton from "./SubmitButton";
-
-
-
-
+import AppButton from "../AppButton";
 
 function AppFormField({ name, width, ...otherProps }) {
   const {
@@ -33,16 +28,16 @@ function AppFormField({ name, width, ...otherProps }) {
       <>
         <View style={styles.line}>
         <AppTextInput
-        styleParam={styles.input}
+          styleParam={styles.input}
           onBlur={() => setFieldTouched(name)}
           onChangeText={(text) => setFieldValue(name, text)}
           value={values[name]}
           width={width}
           {...otherProps}
         />
-        <SubmitButton  styleParamSubmit={styles.button}>
+        <AppButton  styleParam={styles.button}>
           <FaSave />
-</SubmitButton>
+        </AppButton>
 </View>
         <ErrorMessage error={errors[name]} visible={touched[name]} style={ styles.text } />
       </>
