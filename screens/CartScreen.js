@@ -1,24 +1,40 @@
 import React from "react";
-import { View, StyleSheet, FlatList, ImageBackground } from "react-native";
+import { View, StyleSheet, FlatList, ImageBackground,Image } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 
 function CartScreen({navigation}) {
   return (
-    <Screen>
-      <ImageBackground source={require("../assets/bg-moche.png")}>
-      
-      </ImageBackground>
-    </Screen>
+    <Image style={styles.profilePic} source={require("../assets/base-profile-pic.png")} />
+
   );
 }
 const styles = StyleSheet.create({
-  screen: {
-    padding: 20,
-    backgroundColor: colors.light,
+  background: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
-  card: {
-    alignItems: 'center'
+  text : {
+    color : "#FFFEF7",
+    paddingBottom : 10,
+    textAlign: 'right'
+  },
+  forms : {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  profilePic: {
+    width: 200,
+    height: 200,
+    top: 20,
+    alignItems: "center",
+    position: "absolute",
+    borderRadius: 100
   }
+
 });
 export default CartScreen;

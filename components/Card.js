@@ -17,7 +17,7 @@ function Card({ image, subTitle, title }) {
       <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
       </View>
       <View style={styles.button}>
-      <AppButton title="Ajouter au Panier" color="mainBrown"
+      <AppButton customTitle="Ajouter au Panier" color="mainBrown"
         textColor="mainWhite" styleParam={styles.buttonStyles}></AppButton>
         </View>
     </View>

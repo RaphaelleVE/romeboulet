@@ -1,6 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {  DefaultTheme } from '@react-navigation/native';
+
 
 import ShoppingNavigator from "./ShoppingNavigator";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -10,14 +12,16 @@ import CartScreen from "../screens/CartScreen";
 import NewListingButton from "./NewListingButton";
 import routes from "./routes";
 import colors from "../config/colors";
+import navigationTheme from "./navigationTheme";
 
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => (
   <Tab.Navigator
+  theme={appTheme}
   screenOptions={{
-    headerShown: false
+    headerShown: false,
   }}>
     <Tab.Screen
       name="ProfileScreen"
@@ -52,5 +56,15 @@ const AppNavigator = () => (
     />
   </Tab.Navigator>
 );
+
+
+const appTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background:'#FFF'
+  },
+};
+
 
 export default AppNavigator;

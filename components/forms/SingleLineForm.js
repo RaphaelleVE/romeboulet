@@ -5,9 +5,9 @@ import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 import AppTextInput from "../AppTextInput";
 import ErrorMessage from "./ErrorMessage";
-import AppButton from "../AppButton";
 import { FaSave } from "react-icons/fa";
 import colors from "../../config/colors";
+import SubmitButton from "./SubmitButton";
 
 
 
@@ -40,9 +40,9 @@ function AppFormField({ name, width, ...otherProps }) {
           width={width}
           {...otherProps}
         />
-        <AppButton  styleParam={styles.button}>
+        <SubmitButton  styleParamSubmit={styles.button}>
           <FaSave />
-</AppButton>
+</SubmitButton>
 </View>
         <ErrorMessage error={errors[name]} visible={touched[name]} style={ styles.text } />
       </>
