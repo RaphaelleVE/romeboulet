@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Image, ImageBackground, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, ImageBackground, TextInput, TouchableOpacity, View } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
 import Form from "../components/forms/Form";
@@ -11,6 +11,7 @@ import AppText from "../components/AppText";
 import colors from "../config/colors";
 import { auth } from "../firebaseConfig";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import AppFormField from "../components/forms/FormField";
 
 
 const validationSchema = Yup.object().shape({
@@ -24,11 +25,8 @@ function LoginScreen({navigation}) {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    console.log('coucou');
     const unsubscribe = onAuthStateChanged(auth, user => {
-      console.log('là', user);
       if (user) {
-        console.log('ici');
         () => navigation.navigate(routes.MAINPAGESSCREEN);
       }
     });
@@ -60,46 +58,42 @@ function LoginScreen({navigation}) {
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="email"
-            keyboardType="email-address"
-            name="email"
-            placeholder="Email"
-            textContentType="emailAddress"
-            onChangeText={text => setEmail(text)}
-          />
-          <TextInput
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            name="password"
-            placeholder="Password"
-            secureTextEntry
-            textContentType="password"
-            onChangeText={text => setPassword(text)}
-          />
-          <TouchableOpacity 
-            title="Login"
-            onPress={handleLogin}
-            style={styles.button} 
-          >
-            <AppText text={"LOGIN"} color={colors.white} />
-          </TouchableOpacity>
-          <TouchableOpacity 
-            title="Logout"
-            onPress={handleLogout}
-            style={styles.button} 
-          >
-            <AppText text={"LOGOUT"} color={colors.white} />
-          </TouchableOpacity>
-          <AppButton 
-            title="Sign up"
-            color="mainWhite"
-            textColor="mainBrown"
-            onPress={() => navigation.navigate(routes.SIGNUP)}
-          />
+
+          <View style={styles.inputContainer}>
+            <AppFormField
+              name="email"
+              state={email}
+              placeholder="Email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              onChangeText={text => setEmail(text)}
+            />
+            <AppFormField
+              name="password"
+              state={password}
+              placeholder="Password"
+              secureTextEntry
+              textContentType="password"
+              onChangeText={text => setPassword(text)}
+            />
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <AppButton 
+              title="Login"
+              onPress={handleLogin}
+            />
+            {/* <AppButton 
+              title="Logout"
+              onPress={handleLogout}
+            /> */}
+            <AppButton 
+              title="Sign up"
+              color="mainWhite"
+              textColor="mainBrown"
+              onPress={() => navigation.navigate(routes.SIGNUP)}
+            />
+          </View>
         </Form>
       </ImageBackground>
     </Screen>
@@ -119,20 +113,15 @@ const styles = StyleSheet.create({
       alignItems: "center",
       position: "absolute",
     },
-    text : {
-        color : "#FFFEF7",
-        paddingBottom : 10,
-        textAlign: 'right'
+    inputContainer: {
+      width: '80%'
     },
-    button: {
-      backgroundColor: colors.mainBrown,
-      borderRadius: 10,
+    buttonContainer: {
+      width: '80%',
       justifyContent: "center",
       alignItems: "center",
-      padding: 15,
-      width: "90%",
-      marginVertical: 10,
-    },
+      marginTop: 10
+    }
   });
 
 export default LoginScreen;

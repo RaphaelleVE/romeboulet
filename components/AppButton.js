@@ -3,9 +3,9 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
 import colors from "../config/colors";
 
-function AppButton({ title, onPress, color = "mainBrown",textColor = "mainWhite" }) {
+function AppButton({ title, onPress, color = "mainBrown", textColor = "mainWhite" }) {
   const [loaded] = useFonts({
-    Marhey: require('../assets/fonts/Marhey-Light.ttf')
+    Marhey: require('../assets/fonts/Marhey-Medium.ttf')
   })
 
   if(!loaded) {return null}
@@ -28,14 +28,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    padding: 15,
-    width: "90%",
-    marginVertical: 10,
+    padding: 8,
+    width: "100%",
+    marginVertical: 5,
   },
   text: {
     color: colors.mainWhite,
     textTransform: "uppercase",
     fontFamily: 'Marhey',
+    fontSize: 16
   },
 });
 
