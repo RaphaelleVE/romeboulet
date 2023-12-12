@@ -5,12 +5,9 @@ import FormField from "../components/forms/FormField";
 import SingleLineForm from "../components/forms/SingleLineForm";
 
 import AppButton from "../components/AppButton";
-import routes from "../navigation/routes";
 import Screen from "../components/Screen";
-import colors from "../config/colors";
-import AppText from "../components/AppText";
+
 import * as Yup from "yup";
-import AppNavigator from "../navigation/AppNavigator";
 
 
 
