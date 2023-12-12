@@ -4,8 +4,9 @@ import { Image, StyleSheet, View } from "react-native";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import AppText from "./AppText";
+import routes from "../navigation/routes";
 
-function Card({ image, subTitle, title }) {
+function Card({ navigation, image, subTitle, title, description }) {
   return (
     <View style={styles.card} >
       <View style={styles.detailContainer}>
@@ -48,7 +49,8 @@ const styles = StyleSheet.create({
     marginBottom: 7,
     maxWidth: 200,
     minWidth: 200,
-    textAlignVertical: "center"
+    textAlignVertical: "center",
+    fontFamily: 'Marhey',
   },
   button: {
     alignItems: "center",
