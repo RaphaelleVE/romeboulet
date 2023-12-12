@@ -12,30 +12,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 
-
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
-
-/*createUserWithEmailAndPassword(auth, email, password)
-.then(async (userCredential) => {
-  // Signed up 
-  const user = userCredential.user;
-  console.log(user);
-  /*const docRef = await addDoc(collection(db, "users"), {
-    email: user.email,
-    password: user.password
-  });
-  console.log("Document written with ID: ", docRef.id);*/
-/*})
-.catch((error) => {
-  const errorCode = error.code;
-  const errorMessage = error.message;
-  console.log(errorCode, errorMessage);
-  // ..
-});*/
-
 
 function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
@@ -43,14 +23,11 @@ function SignupScreen({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = () => {
-    console.log("pwd", password);
-    console.log("conf", confirmPassword);
     if (password === confirmPassword) {
-      console.log('ici');
       createUserWithEmailAndPassword(auth, email, password)
         .then(userCredentials => {
           const user = userCredentials.user;
-          console.log('mail', user.email);
+          console.log('Registered with : ', user.email);
         })
         .catch(error => alert(error.message))
     }
