@@ -28,6 +28,7 @@ function SignupScreen({navigation}) {
         .then(userCredentials => {
           const user = userCredentials.user;
           console.log('Registered with : ', user.email);
+          navigation.navigate(routes.MAINPAGESSCREEN)
         })
         .catch(error => alert(error.message))
     }

@@ -41,6 +41,7 @@ function LoginScreen({navigation}) {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with : ', user.email);
+        navigation.navigate(routes.MAINPAGESSCREEN)
       })
       .catch(error => alert(error.message))
   }
