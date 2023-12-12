@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Image, ImageBackground, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Image, ImageBackground } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
 import Form from "../components/forms/Form";
-import FormField from "../components/forms/FormField";
-import SubmitButton from "../components/forms/SubmitButton";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
-import AppText from "../components/AppText";
-import colors from "../config/colors";
 import { auth } from "../firebaseConfig";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import AppFormField from "../components/forms/FormField";
+import InputContainer from "../components/forms/InputContainer";
+import ButtonContainer from "../components/forms/ButtonContainer";
 
 
 const validationSchema = Yup.object().shape({
@@ -44,22 +42,22 @@ function LoginScreen({navigation}) {
       .catch(error => alert(error.message))
   }
 
-  const handleLogout = () => {
-    signOut(auth)
-      .catch(error => alert(error.message))
-  }
+  // const handleLogout = () => {
+  //   signOut(auth)
+  //     .catch(error => alert(error.message))
+  // }
 
   return (
     <Screen >
       <ImageBackground blurRadius={3.5} style={styles.background} source={require("../assets/bg-login.png")}>
         <Image style={styles.logo} source={require("../assets/logo-base.png")} />
+
         <Form
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: email, password: password }}
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-
-          <View style={styles.inputContainer}>
+          <InputContainer>
             <AppFormField
               name="email"
               state={email}
@@ -76,9 +74,9 @@ function LoginScreen({navigation}) {
               textContentType="password"
               onChangeText={text => setPassword(text)}
             />
-          </View>
+          </InputContainer>
 
-          <View style={styles.buttonContainer}>
+          <ButtonContainer>
             <AppButton 
               title="Login"
               onPress={handleLogin}
@@ -93,7 +91,7 @@ function LoginScreen({navigation}) {
               textColor="mainBrown"
               onPress={() => navigation.navigate(routes.SIGNUP)}
             />
-          </View>
+          </ButtonContainer>
         </Form>
       </ImageBackground>
     </Screen>
@@ -112,15 +110,6 @@ const styles = StyleSheet.create({
       top: 70,
       alignItems: "center",
       position: "absolute",
-    },
-    inputContainer: {
-      width: '80%'
-    },
-    buttonContainer: {
-      width: '80%',
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: 10
     }
   });
 
