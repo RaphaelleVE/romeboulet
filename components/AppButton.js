@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
 import colors from "../config/colors";
 
-function AppButton({ title, onPress, color = "mainBrown",textColor = "mainWhite", styleParam="default" }) {
+function AppButton({ customTitle, onPress, color = "mainBrown",textColor = "mainWhite", styleParam="default" }) {
   const [loaded] = useFonts({
     Marhey: require('../assets/fonts/Marhey-Light.ttf')
   })
@@ -17,7 +17,7 @@ function AppButton({ title, onPress, color = "mainBrown",textColor = "mainWhite"
         style={[styles.button, styleParam, { backgroundColor: colors[color] }]}
         onPress={onPress}
       >
-        <Text style={[styles.text, { color: colors[textColor]}]}>{title}</Text>
+        <Text style={[styles.text, { color: colors[textColor]}]}>{customTitle}</Text>
       </TouchableOpacity>
     );
   }
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontFamily: 'Marhey',
   },
+ 
 });
 
 export default AppButton;

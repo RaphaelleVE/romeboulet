@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList, ImageBackground } from "react-native";
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import colors from "../config/colors";
+import routes from "../navigation/routes";
 
 const listings = [
   {
@@ -94,27 +95,32 @@ const listings = [
 function ShoppingListScreen({navigation}) {
   return (
     <Screen>
-      <ImageBackground source={require("../assets/bg-moche.png")}>
-      <FlatList
-      style={styles.screen}
-        data={listings}
-        keyExtractor={(listing) => listing.id.toString()}
-        // toString() very important
-        renderItem={({ item }) => (
-          <Card
-            navigation={navigation}
-            title={item.title}
-            subTitle={item.price}
-            image={item.image}
-            description={item.description}
-          />
-        )}
-      />
+      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
+        <FlatList
+        style={styles.screen}
+          data={listings}
+          keyExtractor={(listing) => listing.id.toString()}
+          // toString() very important
+          renderItem={({ item }) => (
+            <Card
+              title={item.title}
+              subTitle={item.price}
+              image={item.image}
+              description={item.description}
+              onPress={() => navigation.navigate("ProductDetailScreen")}
+            />
+          )}
+        />
       </ImageBackground>
     </Screen>
   );
 }
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
   screen: {
     padding: 20,
   },

@@ -2,80 +2,81 @@ import React from "react";
 import {StyleSheet, Image, ImageBackground } from "react-native";
 import Form from "../components/forms/Form";
 import FormField from "../components/forms/FormField";
+import SingleLineForm from "../components/forms/SingleLineForm";
+
 import AppButton from "../components/AppButton";
-import routes from "../navigation/routes";
 import Screen from "../components/Screen";
-import colors from "../config/colors";
-import AppText from "../components/AppText";
+
 import * as Yup from "yup";
 
 
 
 const validationSchema = Yup.object().shape({
+  nickname: Yup.string().required().min(2).max(10).label("Pseudo"),
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
 });
 
 function ProfileScreen({navigation}) {
   return (
     <Screen>
-      <ImageBackground source={require("../assets/bg-moche.png")}>
-      <Image style={styles.logo} source={require("../assets/logo-base.png")} />
-      <AppText>PSEUDO</AppText>
+      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
+      <Image style={styles.profilePic} source={require("../assets/base-profile-pic.png")} />
       <Form
-        initialValues={{ email: "", password: "" }}
+        style ={styles.forms}
+        initialValues={{ nickname: "", email: "" }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-      <FormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
+        <SingleLineForm
+         autoCapitalize="none"
+         autoCorrect={false}
+         icon="account"
+         name="nickname"
+         placeholder="Pseudo"
+         textContentType="nickname"
         />
-
-         
-         
-        <AppButton title="MODIFIER"
-        onPress={() => navigation.navigate(routes.MAINPAGESSCREEN )}
-        />
-        </Form>
-        <AppText>EMAIL</AppText>
-        <Form
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={validationSchema}
-      >
-      <FormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
-        />
-
-         
-         
-        <AppButton title="MODIFIER"
-        onPress={() => navigation.navigate(routes.MAINPAGESSCREEN )}
+        <SingleLineForm
+         autoCapitalize="none"
+         autoCorrect={false}
+         icon="email"
+         keyboardType="email-address"
+         name="email"
+         placeholder="Email"
+         textContentType="emailAddress"
         />
         </Form>
+        <AppButton customTitle="Deconnexion" 
+        onPress={() => navigation.goBack()}/>
       </ImageBackground>
     </Screen>
   );
 }
 const styles = StyleSheet.create({
-  screen: {
-    padding: 20,
-    backgroundColor: colors.light,
+  background: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
-  card: {
-    alignItems: 'center'
+  text : {
+    color : "#FFFEF7",
+    paddingBottom : 10,
+    textAlign: 'right'
+  },
+  forms : {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  profilePic: {
+    width: 200,
+    height: 200,
+    top: 20,
+    alignItems: "center",
+    position: "absolute",
+    borderRadius: 100
   }
+
 });
 export default ProfileScreen;

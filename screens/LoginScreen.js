@@ -44,11 +44,11 @@ function LoginScreen({navigation}) {
           textContentType="password"
         />
         {/* <SubmitButton title="Login" /> */}
-        <AppButton title="Login"
+        <AppButton customTitle="Login"
         onPress={() => navigation.navigate(routes.MAINPAGESSCREEN )}
         />
         <AppButton 
-        title="Sign up"
+        customTitle="Sign up"
         color="mainWhite"
         textColor="mainBrown"
          onPress={() => navigation.navigate(routes.SIGNUP)}
@@ -72,11 +72,6 @@ const styles = StyleSheet.create({
       top: 70,
       alignItems: "center",
       position: "absolute",
-    },
-    text : {
-        color : "#FFFEF7",
-        paddingBottom : 10,
-        textAlign: 'right'
     }
   });
 

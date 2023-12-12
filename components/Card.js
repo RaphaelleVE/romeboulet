@@ -1,13 +1,21 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import AppText from "./AppText";
 import routes from "../navigation/routes";
 
-function Card({ navigation, image, subTitle, title, description }) {
+
+const handlePress = () => {
+  // Your logic for onPress goes here
+  console.log('TouchableOpacity pressed!');
+};
+
+function Card({ onPress, image, subTitle, title, description }) {
   return (
+    <TouchableOpacity
+    onPress={onPress}>
     <View style={styles.card} >
       <View style={styles.detailContainer}>
         <AppText style={styles.text}>{title}</AppText>
@@ -18,10 +26,11 @@ function Card({ navigation, image, subTitle, title, description }) {
       <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
       </View>
       <View style={styles.button}>
-      <AppButton title="Ajouter au Panier" color="mainBrown"
+      <AppButton customTitle="Ajouter au Panier" color="mainBrown"
         textColor="mainWhite" styleParam={styles.buttonStyles}></AppButton>
         </View>
     </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
