@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, ImageBackground, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, ImageBackground } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import * as Yup from "yup";
@@ -7,15 +7,13 @@ import Form from "../components/forms/Form";
 import routes from "../navigation/routes";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import AppText from "../components/AppText";
-import colors from "../config/colors";
 import InputContainer from "../components/forms/InputContainer";
 import ButtonContainer from "../components/forms/ButtonContainer";
 import AppFormField from "../components/forms/FormField";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  password: Yup.string().required().min(6).label("Password"),
 });
 
 function SignupScreen({navigation}) {
