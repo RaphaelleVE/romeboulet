@@ -4,26 +4,7 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 import CartItem from "../components/CartItem";
 import AppButton from "../components/AppButton";
-const listings = [ 
-  {
-    id: 1,
-    title: "Tonneaux de Grog",
-    price: 100,
-    quantity: 10,
-  },
-  {
-    id: 2,
-    title: "Boulets de canon",
-    price: 10,
-    quantity: 1,
-  },
-  {
-    id: 3,
-    title: "Noix de Coco",
-    price: 2,
-    quantity: 2,
-  },
-];
+import * as cartData from '../test.json';
 
 function CartScreen({navigation}) {
   return (
@@ -31,7 +12,7 @@ function CartScreen({navigation}) {
      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
       <FlatList
         style={styles.screen}
-          data={listings}
+          data={cartData.cart}
           keyExtractor={(listing) => listing.id.toString()}
           // toString() very important
           renderItem={({ item }) => (
