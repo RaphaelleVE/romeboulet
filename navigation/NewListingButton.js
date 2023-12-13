@@ -4,10 +4,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../config/colors";
 
-function NewListingButton({ onPress }) {
+function NewListingButton({ onPress , styleParam }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.container}>
+      <View style={[styles.container, styleParam]}>
         <MaterialCommunityIcons
           name="cart-plus"
           color={colors.mainWhite}
