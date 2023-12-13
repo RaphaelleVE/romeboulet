@@ -42,8 +42,8 @@ function AppFormField({ name, width, ...otherProps }) {
         />
         <SubmitButton  styleParamSubmit={styles.button}>
           <FaSave />
-</SubmitButton>
-</View>
+        </SubmitButton>
+        </View>
         <ErrorMessage error={errors[name]} visible={touched[name]} style={ styles.text } />
       </>
     );
