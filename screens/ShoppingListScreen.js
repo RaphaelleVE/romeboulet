@@ -107,7 +107,7 @@ function ShoppingListScreen({navigation}) {
               subTitle={item.price}
               image={item.image}
               description={item.description}
-              onPress={() => navigation.navigate(routes.PRODUCTDETAILSCREEN)}
+              onPress={() => navigation.navigate(routes.PRODUCTDETAILSCREEN,{ product : item })}
             />
           )}
         />

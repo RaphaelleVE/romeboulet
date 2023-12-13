@@ -4,13 +4,13 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
 
-function ProductDetailScreen({navigation, name, description, image, price}) {
+function ProductDetailScreen({navigation, route}) {
   return (
     <Screen>
       <ImageBackground source={require("../assets/bg-moche.png")}>
-          <AppText style={styles.title}>{name}</AppText>
-          <Image style={styles.picture} source={image}/>
-          <AppText style={styles.description}>{description}</AppText>
+          <AppText style={styles.title}>{route.params.product.title}</AppText>
+          <Image style={styles.picture} source={route.params.product.image}/>
+          <AppText style={styles.description}>{route.params.product.description}</AppText>
       </ImageBackground>
     </Screen>
   );
