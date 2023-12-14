@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, ImageBackground,Image } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -7,6 +7,24 @@ import AppButton from "../components/AppButton";
 import * as cartData from '../test.json';
 
 function CartScreen({navigation}) {
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const loadCartData = async () => {
+      // Charger les données du fichier JSON
+      try {
+        const response = await fetch("../test.json");
+        const data = await response.json();
+        setCartItems(data.cart);
+      } catch (error) {
+        console.error("Erreur lors du chargement des données JSON :", error);
+      }
+    };
+
+    // Appeler la fonction pour charger les données
+    loadCartData();
+  }, []); // Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
+
   return (
     <Screen>
      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>

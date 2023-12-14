@@ -6,8 +6,59 @@ import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
 
+import * as cartData from '../test.json';
+
+
+const listings = [
+  {
+    id: 1,
+    title: "Tonneaux de Grog",
+    price: 100,
+    description: "Délicieux tonneaux de grog issue de la réserve personelle du capitaine Pendragon",
+    image: require("../assets/baril_Grog.png"),
+  },
+  {
+    id: 2,
+    title: "Boulets de canon",
+    price: 10,
+    description: "De bons boulets (je ne parle pas de vos matelots) utile pour casser du navire",
+    image: require("../assets/cannon_ball.png"),
+  },
+  {
+    id: 3,
+    title: "Noix de Coco",
+    price: 2,
+    description: "Noix de coco, idéale pour se raffraichir en pleine mer! a consommer avec modération",
+    image: require("../assets/coconut.png"),
+  },
+  {
+    id: 4,
+    title: "Bananes",
+    price: 2,
+    description: "Le véritable snack du bon pirate, permet de se nourrir peu importe la situation",
+    image: require("../assets/banana.jpg"),
+  },
+  {
+    id: 5,
+    title: "Bouteilles de Rhum",
+    price: 20,
+    description: "caisse de bouteille de rhum du sailor's bounty, a consommer sans aucune modération ! ",
+    image: require("../assets/rhum_Bottles.png"),
+  }];
+
 function ProductDetailScreen({navigation, route}) {
    let [quantity, setQuantity] = useState(0);
+
+   function handleAddToListings () {
+    try {
+      data=cartData.cart
+      data.push(listings)
+
+    } catch (error) {
+      console.error("Erreur lors de l'ajout de l'élément au fichier JSON :", error);
+    }
+  };
+
    function incrementQuantity() {
      quantity = quantity + 1;
      setQuantity(quantity);
@@ -20,6 +71,7 @@ function ProductDetailScreen({navigation, route}) {
   return (
     <Screen>
       <ImageBackground style = {styles.background} source={require("../assets/bg-moche.png")}>
+      <AppButton styleParam={styles.backButtons} customTitle="BACK" onPress={() => navigation.goBack()}></AppButton>
         <ScrollView style = {styles.scrollView}>
           <AppText numberOfLines={2} adjustsFontSizeToFit style={styles.title}>{route.params.product.title}</AppText>
           <Image style={styles.picture} source={route.params.product.image}/>
@@ -34,7 +86,7 @@ function ProductDetailScreen({navigation, route}) {
             <AppButton styleParam={styles.buttons} customTitle="+" onPress={incrementQuantity}></AppButton>
           </View>
           <View style={styles.orderButton}>
-          <AppButton styleParam={styles.orderButton} customTitle="Ajouter au Panier"></AppButton>
+          <AppButton styleParam={styles.orderButton} customTitle="Ajouter au Panier" onPress={handleAddToListings}></AppButton>
           </View>
           </ScrollView>
       </ImageBackground>
@@ -53,18 +105,21 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     fontFamily: "Marhey",
-    fontSize:40,
+    fontSize:35,
+    margin:10,
     alignSelf: "center",
     textAlign: "center",
   },
   picture: {
-      width: 300,
-      height: 300,
+      width: 250,
+      height: 250,
       borderRadius: 150,
       alignSelf: "center",
   },
   description: {
     fontFamily: "Marhey",
+    margin:10,
+    textAlign: "center",
     fontSize: 15,
     paddingLeft: 10,
     paddingRight: 5,
@@ -78,7 +133,9 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: colors["mainWhite"],
     borderRadius: 30,
-    margin: 15
+    margin: 15,
+    marginTop: 5,
+    marginBottom : 30
   },
   doubloon: {
     width:25,
@@ -99,6 +156,13 @@ const styles = StyleSheet.create({
     width:100,
     height:30,
     marginVertical:0,
+  },
+  backButtons: {
+    width:100,
+    height:40,
+    alignItems: "center",
+    padding : 7,
+    margin: 15,
   },
   orderButton:{
     alignItems: "center",
