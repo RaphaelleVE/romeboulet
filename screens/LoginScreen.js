@@ -21,10 +21,11 @@ function LoginScreen({navigation}) {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
+    setEmail('');
+    setPassword('');
+
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
-        setEmail('');
-        setPassword('');
         () => navigation.navigate(routes.MAINPAGESSCREEN);
       }
     });

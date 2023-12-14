@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import Form from "../components/forms/Form";
 import routes from "../navigation/routes";
 import { auth } from "../firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import InputContainer from "../components/forms/InputContainer";
 import ButtonContainer from "../components/forms/ButtonContainer";
 import AppFormField from "../components/forms/FormField";
@@ -30,7 +30,11 @@ function SignupScreen({navigation}) {
           setEmail('');
           setPassword('');
           setConfirmPassword('');
-          navigation.navigate(routes.MAINPAGESSCREEN)
+
+          sendEmailVerification(auth.currentUser)
+            .then(() => {
+              navigation.navigate(routes.MAINPAGESSCREEN);
+            })
         })
         .catch(error => alert(error.message))
     }
