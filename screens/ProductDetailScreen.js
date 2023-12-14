@@ -20,6 +20,7 @@ function ProductDetailScreen({navigation, route}) {
   return (
     <Screen>
       <ImageBackground style = {styles.background} source={require("../assets/bg-moche.png")}>
+      <AppButton styleParam={styles.backButtons} customTitle="BACK" onPress={() => navigation.goBack()}></AppButton>
         <ScrollView style = {styles.scrollView}>
           <AppText numberOfLines={2} adjustsFontSizeToFit style={styles.title}>{route.params.product.title}</AppText>
           <Image style={styles.picture} source={route.params.product.image}/>
@@ -53,23 +54,27 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     fontFamily: "Marhey",
-    fontSize:40,
+    fontSize:35,
+    margin:10,
     alignSelf: "center",
     textAlign: "center",
   },
   picture: {
-      width: 300,
-      height: 300,
+      width: 250,
+      height: 250,
       borderRadius: 150,
       alignSelf: "center",
   },
   description: {
     fontFamily: "Marhey",
+    margin:10,
+    textAlign: "center",
     fontSize: 15,
     paddingLeft: 10,
     paddingRight: 5,
     paddingTop: 5,
     paddingBottom: 10
+
   },
   background: {
     flex: 1,
@@ -78,7 +83,9 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: colors["mainWhite"],
     borderRadius: 30,
-    margin: 15
+    margin: 15,
+    marginTop: 5,
+    marginBottom : 30
   },
   doubloon: {
     width:25,
@@ -99,6 +106,13 @@ const styles = StyleSheet.create({
     width:100,
     height:30,
     marginVertical:0,
+  },
+  backButtons: {
+    width:100,
+    height:40,
+    alignItems: "center",
+    padding : 7,
+    margin: 15,
   },
   orderButton:{
     alignItems: "center",
