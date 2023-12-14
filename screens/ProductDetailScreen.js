@@ -61,7 +61,7 @@ function ProductDetailScreen({navigation, route}) {
       const currentData = JSON.parse(currentContent);
 
       // Ajouter de nouvelles données à l'objet JSON
-      currentData.cart.push({ id: 3, name: "Nouvel article", price: 30 });
+      currentData.cart.push(route.params.product);
 
       // Convertir l'objet JSON mis à jour en chaîne JSON
       const updatedContent = JSON.stringify(currentData);
