@@ -5,6 +5,7 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
+
 import * as cartData from '../test.json';
 
 
@@ -124,7 +125,6 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingTop: 5,
     paddingBottom: 10
-
   },
   background: {
     flex: 1,

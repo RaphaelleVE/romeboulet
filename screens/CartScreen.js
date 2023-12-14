@@ -7,7 +7,6 @@ import AppButton from "../components/AppButton";
 import * as cartData from '../test.json';
 
 function CartScreen({navigation}) {
-
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ function CartScreen({navigation}) {
     // Appeler la fonction pour charger les données
     loadCartData();
   }, []); // Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
-
 
   return (
     <Screen>
