@@ -6,6 +6,8 @@ import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
 import * as cartData from '../test.json';
+import * as FileSystem from 'expo-file-system';
+
 
 
 const listings = [
@@ -48,15 +50,31 @@ const listings = [
 function ProductDetailScreen({navigation, route}) {
    let [quantity, setQuantity] = useState(0);
 
-   function handleAddToListings () {
+   const handleAddToCart = async () => {
     try {
-      data=cartData.cart
-      data.push(listings)
+      const path = FileSystem.documentDirectory + 'shoppingList.json';
 
+      // Lire le contenu actuel du fichier JSON
+      const currentContent = await FileSystem.readAsStringAsync(path);
+
+      // Convertir le contenu en objet JSON
+      const currentData = JSON.parse(currentContent);
+
+      // Ajouter de nouvelles données à l'objet JSON
+      currentData.cart.push({ id: 3, name: "Nouvel article", price: 30 });
+
+      // Convertir l'objet JSON mis à jour en chaîne JSON
+      const updatedContent = JSON.stringify(currentData);
+
+      // Écrire la chaîne JSON mise à jour dans le fichier
+      await FileSystem.writeAsStringAsync(path, updatedContent);
+
+      console.log("Données ajoutées avec succès au fichier shoppingList.json !");
     } catch (error) {
-      console.error("Erreur lors de l'ajout de l'élément au fichier JSON :", error);
+      console.error("Erreur lors de l'écriture dans le fichier shoppingList.json :", error);
     }
   };
+
 
    function incrementQuantity() {
      quantity = quantity + 1;
@@ -85,7 +103,7 @@ function ProductDetailScreen({navigation, route}) {
             <AppButton styleParam={styles.buttons} customTitle="+" onPress={incrementQuantity}></AppButton>
           </View>
           <View style={styles.orderButton}>
-          <AppButton styleParam={styles.orderButton} customTitle="Ajouter au Panier" onPress={handleAddToListings}></AppButton>
+          <AppButton styleParam={styles.orderButton} customTitle="Ajouter au Panier" onPress={handleAddToCart}></AppButton>
           </View>
           </ScrollView>
       </ImageBackground>

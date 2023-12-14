@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, ImageBackground,Image } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import CartItem from "../components/CartItem";
 import AppButton from "../components/AppButton";
 import * as cartData from '../test.json';
+import * as FileSystem from 'expo-file-system';
+
 
 function CartScreen({navigation}) {
 
   const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
+  useFocusEffect(
+    React.useCallback(() => {
     const loadCartData = async () => {
-      // Charger les données du fichier JSON
       try {
-        const response = await fetch("../test.json");
-        const data = await response.json();
+        console.log("reload cart");
+        const path = FileSystem.documentDirectory + '/shoppingList.json';
+        const content = await FileSystem.readAsStringAsync(path);
+        const data = JSON.parse(content);
         setCartItems(data.cart);
       } catch (error) {
         console.error("Erreur lors du chargement des données JSON :", error);
@@ -24,7 +29,8 @@ function CartScreen({navigation}) {
 
     // Appeler la fonction pour charger les données
     loadCartData();
-  }, []); // Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
+  }, [])
+  );// Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
 
 
   return (
@@ -32,7 +38,7 @@ function CartScreen({navigation}) {
      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
       <FlatList
         style={styles.screen}
-          data={cartData.cart}
+          data={cartItems}
           keyExtractor={(listing) => listing.id.toString()}
           // toString() very important
           renderItem={({ item }) => (
