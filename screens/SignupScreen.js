@@ -21,6 +21,7 @@ function SignupScreen({navigation}) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  //Add new user in firebase & send an email to verify the email address
   const handleSignUp = () => {
     if (password === confirmPassword) {
       createUserWithEmailAndPassword(auth, email, password)

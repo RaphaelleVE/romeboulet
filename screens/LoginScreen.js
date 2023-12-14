@@ -24,6 +24,7 @@ function LoginScreen({navigation}) {
     setEmail('');
     setPassword('');
 
+    //If user is connected, change the page to profile
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
         () => navigation.navigate(routes.MAINPAGESSCREEN);
@@ -33,9 +34,12 @@ function LoginScreen({navigation}) {
     return unsubscribe;
   }, [])
 
+  //When user is connected, change the page to profile
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
+        setEmail('');
+        setPassword('');
         const user = userCredentials.user;
         console.log('Logged in with : ', user.email);
         navigation.navigate(routes.MAINPAGESSCREEN)

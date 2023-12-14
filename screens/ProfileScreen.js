@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {StyleSheet, Image, ImageBackground } from "react-native";
 import Form from "../components/forms/Form";
 import AppButton from "../components/AppButton";
@@ -6,29 +6,30 @@ import Screen from "../components/Screen";
 import * as Yup from "yup";
 import routes from "../navigation/routes";
 import { auth } from "../firebaseConfig";
-import { sendPasswordResetEmail, signOut, updateEmail, verifyBeforeUpdateEmail } from "firebase/auth";
+import { sendPasswordResetEmail, signOut, verifyBeforeUpdateEmail } from "firebase/auth";
 import InputContainer from "../components/forms/InputContainer";
 import AppFormField from "../components/forms/FormField";
 import ButtonContainer from "../components/forms/ButtonContainer";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(6).label("Password"),
+  email: Yup.string().required().email().label("Email")
 });
 
 function ProfileScreen({navigation}) {
   const currentUser = auth.currentUser;
   const [email, setEmail] = useState(currentUser.email);
   
+  //Update the user's email 
   const handleUpdateEmail = () => {
-      verifyBeforeUpdateEmail(currentUser, email)
-        .then(alert('Email updated ! An email has been send to verify the new one.'))
-        .catch(e => {
-          alert('An error occurs...')
-          console.error(e);
-        })
+    verifyBeforeUpdateEmail(currentUser, email)
+      .then(alert('Email updated ! An email has been send to verify the new one.'))
+      .catch(e => {
+        alert('An error occurs...')
+        console.error(e);
+      })
   }
   
+  //Update the user's password
   const handleUpdatePassword = () => {
     sendPasswordResetEmail(auth, email)
       .then(alert('An email has been send'))
@@ -38,6 +39,7 @@ function ProfileScreen({navigation}) {
       })
   }
 
+  //Log out the current user
   const handleLogout = () => {
     signOut(auth)
       .then(() => navigation.navigate(routes.LOGIN))
