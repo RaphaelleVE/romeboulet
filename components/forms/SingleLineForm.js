@@ -38,7 +38,7 @@ function AppFormField({ name, width, ...otherProps }) {
         <AppButton  styleParam={styles.button}>
           <FaSave />
         </AppButton>
-</View>
+        </View>
         <ErrorMessage error={errors[name]} visible={touched[name]} style={ styles.text } />
       </>
     );

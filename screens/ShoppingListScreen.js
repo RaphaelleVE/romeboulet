@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet, FlatList, ImageBackground } from "react-native";
+import {  StyleSheet, FlatList, ImageBackground } from "react-native";
+
 import Screen from "../components/Screen";
 import Card from "../components/Card";
-import colors from "../config/colors";
 import routes from "../navigation/routes";
+
+
 
 const listings = [
   {
@@ -93,6 +95,10 @@ const listings = [
 ];
 
 function ShoppingListScreen({navigation}) {
+
+
+
+
   return (
     <Screen>
       <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
@@ -107,7 +113,7 @@ function ShoppingListScreen({navigation}) {
               subTitle={item.price}
               image={item.image}
               description={item.description}
-              onPress={() => navigation.navigate(routes.PRODUCTDETAILSCREEN)}
+              onPress={() => navigation.navigate(routes.PRODUCTDETAILSCREEN,{ product : item })}
             />
           )}
         />
