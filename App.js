@@ -1,14 +1,12 @@
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigator from "./navigation/AuthNavigator";
-import React, { useState } from 'react';
-
-
+import React from 'react';
 
 export default function App() {
   return(
     <NavigationContainer>
-      <AuthNavigator/>
+      <AuthNavigator />
     </NavigationContainer>
   );
 }
