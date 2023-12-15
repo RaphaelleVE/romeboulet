@@ -20,6 +20,7 @@ function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  //use Effect called when page is generated
   useEffect(() => {
     setEmail('');
     setPassword('');

@@ -16,6 +16,7 @@ import colors from "../config/colors";
 
 const Tab = createBottomTabNavigator();
 
+//bottom app bar navigation 
 const AppNavigator = () => (
   <Tab.Navigator
   screenOptions={{

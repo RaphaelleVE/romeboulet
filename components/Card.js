@@ -8,10 +8,6 @@ import routes from "../navigation/routes";
 import * as FileSystem from 'expo-file-system';
 
 
-const handlePress = () => {
-  // Your logic for onPress goes here
-  console.log('TouchableOpacity pressed!');
-};
 
 function Card({ onPress, image, subTitle, title, id }) {
 

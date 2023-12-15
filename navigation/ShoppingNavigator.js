@@ -4,7 +4,7 @@ import ShoppingListScreen from "../screens/ShoppingListScreen";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
 
 const Stack = createStackNavigator();
-
+//navigator for shopping managment (list & product detail)
 const ShoppingNavigator = () => (
   <Stack.Navigator
   screenOptions={{

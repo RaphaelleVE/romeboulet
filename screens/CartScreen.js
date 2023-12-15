@@ -14,28 +14,37 @@ function CartScreen({navigation}) {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState();
 
+  //useFocusEffect is called when we navigate throught that page. (when button cart is pressed)
+  //we need to read the cart everytime we navigate to the cart to get the products that are added
   useFocusEffect(
     React.useCallback(() => {
+
+      //function to read JSON cart
     const loadCartData = async () => {
       try {
         console.log("reload cart");
+        //get the path to the shoppingList JSON
         const path = FileSystem.documentDirectory + '/shoppingList.json';
+        //read the file at the path
         const content = await FileSystem.readAsStringAsync(path);
         let tempTotal = 0;
+        //parse JSON
         const data = JSON.parse(content);
+        //get items from to JSON
         setCartItems(data.cart);
+        //get total amount of the cart
         data.cart.map((item) => { 
           console.log(item)
           tempTotal += item.price * item.quantity})
           setTotal(tempTotal);
       } catch (error) {
-        console.error("Erreur lors du chargement des données JSON :", error);
+        console.error("Error when getting JSON data :", error);
       }
     };
-    // Appeler la fonction pour charger les données
+    // call function to load data
     loadCartData();
   }, [])
-  );// Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
+  );
 
 
   return (

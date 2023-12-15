@@ -7,6 +7,7 @@ import MainPagesScreen from "../screens/MainPagesScreen";
 
 const Stack = createStackNavigator();
 
+//navigation for login and sign up
 const AuthNavigator = () => (
   <Stack.Navigator
   screenOptions={{

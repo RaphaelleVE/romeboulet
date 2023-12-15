@@ -6,7 +6,7 @@ import defaultStyles from "../config/styles";
 import colors from "../config/colors";
 import AppText from "./AppText";
 
-
+//component created for text view
 function AppTextContainerView({ icon, text, styleParam="default" , ...otherProps }) {
   const [loaded] = useFonts({
     Marhey: require('../assets/fonts/Marhey-Light.ttf')

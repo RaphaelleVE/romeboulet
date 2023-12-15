@@ -12,16 +12,14 @@ function ProductDetailScreen({navigation, route}) {
    const handleAddToCart = async () => {
     try {
       const path = FileSystem.documentDirectory + 'shoppingList.json';
-
-      // Lire le contenu actuel du fichier JSON
+      // Read JSON file
       const currentContent = await FileSystem.readAsStringAsync(path);
-
-      // Convertir le contenu en objet JSON
+      // convert in JSON object
       const currentData = JSON.parse(currentContent);
-      // vérifie si l'élément existe deja dans la panier, si oui on incrémente justqe sa quantitée
+      // check if product is already in cart, if yes increase quantity instead
       const elementExists = currentData.cart.findIndex(product => product.id === route.params.product.id);
       if(elementExists === -1){
-      // Ajouter de nouvelles données à l'objet JSON
+      // add data to JSON object
       currentData.cart.push({
         "id": route.params.product.id,
         "title": route.params.product.title,
@@ -31,22 +29,22 @@ function ProductDetailScreen({navigation, route}) {
     }else{
       currentData.cart[elementExists].quantity += quantity ;
     }
-
-      // Convertir l'objet JSON mis à jour en chaîne JSON
+      // convert JSON object to JSON chain
       const updatedContent = JSON.stringify(currentData);
-
-      // Écrire la chaîne JSON mise à jour dans le fichier
+      // write JSON chain into JSON file
       await FileSystem.writeAsStringAsync(path, updatedContent);
-
-      console.log("Données ajoutées avec succès au fichier shoppingList.json !");
+      console.log("Data succesfully added to shoppingList.json !");
     } catch (error) {
-      console.error("Erreur lors de l'écriture dans le fichier shoppingList.json :", error);
+      console.error("Error writing in shoppingList.json :", error);
     }
   };
+
+  //add 1 to quantity 
    function incrementQuantity() {
      quantity = quantity + 1;
      setQuantity(quantity);
    }
+   //remove 1 to quantity 
    function decrementQuantity() {
      if(quantity > 0)
      quantity = quantity - 1;

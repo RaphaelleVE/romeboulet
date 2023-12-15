@@ -11,17 +11,19 @@ import InputContainer from "../components/forms/InputContainer";
 import ButtonContainer from "../components/forms/ButtonContainer";
 import AppFormField from "../components/forms/FormField";
 
+// Define the form validation schema using Yup for email and password
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(6).label("Password"),
 });
 
+  // Function to handle user sign-up
 function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  //Add new user in firebase & send an email to verify the email address
+  // Add new user in firebase & send an email to verify the email address
   const handleSignUp = () => {
     if (password === confirmPassword) {
       createUserWithEmailAndPassword(auth, email, password)

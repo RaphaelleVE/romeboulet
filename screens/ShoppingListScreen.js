@@ -6,7 +6,7 @@ import Card from "../components/Card";
 import routes from "../navigation/routes";
 
 
-
+//products available in the shopping list
 const listings = [
   {
     id: 1,
