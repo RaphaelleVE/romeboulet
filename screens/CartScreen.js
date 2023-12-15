@@ -56,7 +56,7 @@ function CartScreen({navigation}) {
         <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
       </View>
       
-      <AppButton title="Commander" />
+      <AppButton title="Commander" styleParam={{width: '90%', marginBottom: 30}} />
      </ImageBackground>
     </Screen>
   );

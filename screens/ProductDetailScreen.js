@@ -72,7 +72,7 @@ function ProductDetailScreen({navigation, route}) {
             <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
           </View>
           <View style={styles.quantitySetter}>
-            <AppText style={styles.price}>Quantitée : {quantity}</AppText>
+            <AppText style={styles.price}>Quantité : {quantity}</AppText>
             <AppButton 
               styleParam={styles.buttons} 
               title="-" 
@@ -89,7 +89,7 @@ function ProductDetailScreen({navigation, route}) {
             <AppButton 
               title="Add to cart" 
               onPress={handleAddToCart}
-              styleParam={{marginTop: 50}}
+              styleParam={{marginTop: 50, width: '95%'}}
             />
           </View>
         </ScrollView>
