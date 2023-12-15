@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ImageBackground, Image, ScrollView} from "react-native";
+import { View, StyleSheet, FlatList, ImageBackground, Image, ScrollView} from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
@@ -43,8 +43,6 @@ function ProductDetailScreen({navigation, route}) {
       console.error("Erreur lors de l'écriture dans le fichier shoppingList.json :", error);
     }
   };
-
-
    function incrementQuantity() {
      quantity = quantity + 1;
      setQuantity(quantity);
@@ -69,12 +67,10 @@ function ProductDetailScreen({navigation, route}) {
           <AppText numberOfLines={2} adjustsFontSizeToFit style={styles.title}>{route.params.product.title}</AppText>
           <Image style={styles.picture} source={route.params.product.image}/>
           <AppText style={styles.description}>{route.params.product.description}</AppText>
-
           <View style={styles.priceTag}>
             <AppText style={styles.price}>Prix a l'unité : {route.params.product.price}</AppText>
             <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
           </View>
-
           <View style={styles.quantitySetter}>
             <AppText style={styles.price}>Quantitée : {quantity}</AppText>
             <AppButton 
@@ -133,7 +129,6 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingTop: 5,
     paddingBottom: 10
-
   },
   background: {
     flex: 1,

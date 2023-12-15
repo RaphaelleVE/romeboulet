@@ -1,86 +1,114 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image, ImageBackground } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import * as Yup from "yup";
 import Form from "../components/forms/Form";
-import FormField from "../components/forms/FormField";
-import SubmitButton from "../components/forms/SubmitButton";
 import routes from "../navigation/routes";
+import { auth } from "../firebaseConfig";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import InputContainer from "../components/forms/InputContainer";
+import ButtonContainer from "../components/forms/ButtonContainer";
+import AppFormField from "../components/forms/FormField";
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(6).label("Password"),
+});
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().required().email().label("Email"),
-    password: Yup.string().required().min(4).label("Password"),
-  });
-  
-  
-  function SignupScreen({navigation}) {
-      return (
-        <Screen >
-           <ImageBackground blurRadius={3.5} style={styles.background} source={require("../assets/bg-login.png")}>
-           <Image style={styles.logo} source={require("../assets/logo-base.png")} />
-           <Form
-          initialValues={{ email: "", password: "" }}
+function SignupScreen({navigation}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  //Add new user in firebase & send an email to verify the email address
+  const handleSignUp = () => {
+    if (password === confirmPassword) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(userCredentials => {
+          const user = userCredentials.user;
+          console.log('Registered with : ', user.email);
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
+
+          sendEmailVerification(auth.currentUser)
+            .then(() => {
+              navigation.navigate(routes.MAINPAGESSCREEN);
+            })
+        })
+        .catch(error => alert(error.message))
+    }
+  }
+
+  return (
+    <Screen >
+      <ImageBackground blurRadius={3.5} style={styles.background} source={require("../assets/bg-login.png")}>
+        <Image style={styles.logo} source={require("../assets/logo-base.png")} />
+
+        <Form
+          initialValues={{ email: email, password: password, confirmPassword: confirmPassword }}
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="email"
-            keyboardType="email-address"
-            name="email"
-            placeholder="Email"
-            textContentType="emailAddress"
-          />
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            name="password"
-            placeholder="Password"
-            secureTextEntry
-            textContentType="password"
-          />
-           <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            name="confirm password"
-            placeholder="PasswordConfirm"
-            textContentType="password"
-          />
-          <SubmitButton
-           title="Sign up"
+          <InputContainer>
+            <AppFormField
+              name="email"
+              state={email}
+              placeholder="Email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              onChangeText={text => setEmail(text)}
             />
-          <AppButton 
-          title="Login"
-          color="mainWhite"
-          textColor="mainBrown"
-           onPress={() => navigation.navigate(routes.LOGIN)}
-           />
-        </Form>
-          </ImageBackground>
-      </Screen>
-    );
-    
-  }
+            <AppFormField
+              name="password"
+              state={password}
+              placeholder="Password"
+              secureTextEntry
+              textContentType="password"
+              onChangeText={text => setPassword(text)}
+            />
+            <AppFormField
+              name="confirmPassword"
+              state={confirmPassword}
+              placeholder="Confirm password"
+              secureTextEntry
+              textContentType="password"
+              onChangeText={text => setConfirmPassword(text)}
+            />
+          </InputContainer>
 
+          <ButtonContainer>
+            <AppButton
+              title="Sign up"
+              onPress={handleSignUp}
+            />
+            <AppButton 
+              title="Login"
+              color="mainWhite"
+              textColor="mainBrown"
+              onPress={() => navigation.navigate(routes.LOGIN)}
+            />
+          </ButtonContainer>
+        </Form>
+      </ImageBackground>
+    </Screen>
+  );
+}
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        justifyContent: "flex-end",
-        alignItems: "center",
-      },
-    logo: {
-      width: 200,
-      height: 200,
-      top: 70,
+  background: {
+      flex: 1,
+      justifyContent: "flex-end",
       alignItems: "center",
-      position: "absolute",
     },
-  });
+  logo: {
+    width: 200,
+    height: 200,
+    top: 70,
+    alignItems: "center",
+    position: "absolute",
+  }
+});
 
 export default SignupScreen;

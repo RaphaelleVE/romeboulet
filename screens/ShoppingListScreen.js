@@ -5,6 +5,8 @@ import Screen from "../components/Screen";
 import Card from "../components/Card";
 import routes from "../navigation/routes";
 
+
+
 const listings = [
   {
     id: 1,

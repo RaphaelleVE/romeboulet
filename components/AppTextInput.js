@@ -15,7 +15,7 @@ function AppTextInput({ icon, width = "100%", styleParam="default" , ...otherPro
 
   if (loaded) {
     return (
-      <View style={[styles.container, { width },styleParam]}>
+      <View style={[styles.container, { width }, styleParam]}>
         {icon && (
           <MaterialCommunityIcons
             name={icon}

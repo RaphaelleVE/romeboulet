@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, ImageBackground,Image } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/Screen";
@@ -32,7 +32,6 @@ function CartScreen({navigation}) {
         console.error("Erreur lors du chargement des données JSON :", error);
       }
     };
-
     // Appeler la fonction pour charger les données
     loadCartData();
   }, [])
