@@ -4,61 +4,45 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
-import routes from "../navigation/routes";
-
-import * as cartData from '../test.json';
-
-
-const listings = [
-  {
-    id: 1,
-    title: "Tonneaux de Grog",
-    price: 100,
-    description: "Délicieux tonneaux de grog issue de la réserve personelle du capitaine Pendragon",
-    image: require("../assets/baril_Grog.png"),
-  },
-  {
-    id: 2,
-    title: "Boulets de canon",
-    price: 10,
-    description: "De bons boulets (je ne parle pas de vos matelots) utile pour casser du navire",
-    image: require("../assets/cannon_ball.png"),
-  },
-  {
-    id: 3,
-    title: "Noix de Coco",
-    price: 2,
-    description: "Noix de coco, idéale pour se raffraichir en pleine mer! a consommer avec modération",
-    image: require("../assets/coconut.png"),
-  },
-  {
-    id: 4,
-    title: "Bananes",
-    price: 2,
-    description: "Le véritable snack du bon pirate, permet de se nourrir peu importe la situation",
-    image: require("../assets/banana.jpg"),
-  },
-  {
-    id: 5,
-    title: "Bouteilles de Rhum",
-    price: 20,
-    description: "caisse de bouteille de rhum du sailor's bounty, a consommer sans aucune modération ! ",
-    image: require("../assets/rhum_Bottles.png"),
-  }];
+import * as FileSystem from 'expo-file-system';
 
 function ProductDetailScreen({navigation, route}) {
-   let [quantity, setQuantity] = useState(0);
+   let [quantity, setQuantity] = useState(1);
 
-   function handleAddToListings () {
+   const handleAddToCart = async () => {
     try {
-      data=cartData.cart
-      data.push(listings)
+      const path = FileSystem.documentDirectory + 'shoppingList.json';
 
+      // Lire le contenu actuel du fichier JSON
+      const currentContent = await FileSystem.readAsStringAsync(path);
+
+      // Convertir le contenu en objet JSON
+      const currentData = JSON.parse(currentContent);
+      // vérifie si l'élément existe deja dans la panier, si oui on incrémente justqe sa quantitée
+      const elementExists = currentData.cart.findIndex(product => product.id === route.params.product.id);
+      if(elementExists === -1){
+      // Ajouter de nouvelles données à l'objet JSON
+      currentData.cart.push({
+        "id": route.params.product.id,
+        "title": route.params.product.title,
+        "price": route.params.product.price,
+        "quantity": quantity
+      });
+    }else{
+      currentData.cart[elementExists].quantity += quantity ;
+    }
+
+      // Convertir l'objet JSON mis à jour en chaîne JSON
+      const updatedContent = JSON.stringify(currentData);
+
+      // Écrire la chaîne JSON mise à jour dans le fichier
+      await FileSystem.writeAsStringAsync(path, updatedContent);
+
+      console.log("Données ajoutées avec succès au fichier shoppingList.json !");
     } catch (error) {
-      console.error("Erreur lors de l'ajout de l'élément au fichier JSON :", error);
+      console.error("Erreur lors de l'écriture dans le fichier shoppingList.json :", error);
     }
   };
-
    function incrementQuantity() {
      quantity = quantity + 1;
      setQuantity(quantity);
@@ -71,7 +55,14 @@ function ProductDetailScreen({navigation, route}) {
   return (
     <Screen>
       <ImageBackground style = {styles.background} source={require("../assets/bg-moche.png")}>
-      <AppButton styleParam={styles.backButtons} customTitle="BACK" onPress={() => navigation.goBack()}></AppButton>
+        <AppButton 
+          styleParam={styles.backButtons} 
+          title="Back" 
+          color="mainWhite"
+          textColor="mainBrown"
+          onPress={() => navigation.goBack()}
+        />
+
         <ScrollView style = {styles.scrollView}>
           <AppText numberOfLines={2} adjustsFontSizeToFit style={styles.title}>{route.params.product.title}</AppText>
           <Image style={styles.picture} source={route.params.product.image}/>
@@ -82,13 +73,26 @@ function ProductDetailScreen({navigation, route}) {
           </View>
           <View style={styles.quantitySetter}>
             <AppText style={styles.price}>Quantitée : {quantity}</AppText>
-            <AppButton styleParam={styles.buttons} customTitle="-" onPress={decrementQuantity}></AppButton>
-            <AppButton styleParam={styles.buttons} customTitle="+" onPress={incrementQuantity}></AppButton>
+            <AppButton 
+              styleParam={styles.buttons} 
+              title="-" 
+              onPress={decrementQuantity}
+            />
+            <AppButton 
+              styleParam={styles.buttons} 
+              title="+" 
+              onPress={incrementQuantity}
+            />
           </View>
+
           <View style={styles.orderButton}>
-          <AppButton styleParam={styles.orderButton} customTitle="Ajouter au Panier" onPress={handleAddToListings}></AppButton>
+            <AppButton 
+              title="Add to cart" 
+              onPress={handleAddToCart}
+              styleParam={{marginTop: 50}}
+            />
           </View>
-          </ScrollView>
+        </ScrollView>
       </ImageBackground>
     </Screen>
   );
@@ -143,7 +147,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontFamily: "Marhey",
-    paddingLeft: 10,
+    paddingHorizontal: 10,
     paddingRight: 5,
   },
   priceTag: {
@@ -153,9 +157,11 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   buttons: {
-    width:100,
+    width:80,
     height:30,
     marginVertical:0,
+    marginHorizontal: 2,
+    padding: 0
   },
   backButtons: {
     width:100,

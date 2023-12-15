@@ -1,43 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, ImageBackground,Image } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import CartItem from "../components/CartItem";
 import AppButton from "../components/AppButton";
-import * as cartData from '../test.json';
+import * as FileSystem from 'expo-file-system';
+import AppText from "../components/AppText";
+
 
 function CartScreen({navigation}) {
-  const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
+  const [cartItems, setCartItems] = useState([]);
+  const [total, setTotal] = useState();
+
+  useFocusEffect(
+    React.useCallback(() => {
     const loadCartData = async () => {
-      // Charger les données du fichier JSON
       try {
-        const response = await fetch("../test.json");
-        const data = await response.json();
+        console.log("reload cart");
+        const path = FileSystem.documentDirectory + '/shoppingList.json';
+        const content = await FileSystem.readAsStringAsync(path);
+        let tempTotal = 0;
+        const data = JSON.parse(content);
         setCartItems(data.cart);
+        data.cart.map((item) => { 
+          console.log(item)
+          tempTotal += item.price * item.quantity})
+          setTotal(tempTotal);
       } catch (error) {
         console.error("Erreur lors du chargement des données JSON :", error);
       }
     };
-
     // Appeler la fonction pour charger les données
     loadCartData();
-  }, []); // Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
+  }, [])
+  );// Le tableau vide en tant que deuxième argument signifie que cela ne doit s'exécuter qu'une fois à l'initialisation du composant
+
 
   return (
     <Screen>
      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
       <FlatList
         style={styles.screen}
-          data={cartData.cart}
-          keyExtractor={(listing) => listing.id.toString()}
-          // toString() very important
-          renderItem={({ item }) => (
-            <CartItem title = {item.title}/>
-          )}
-        />
-           <AppButton customTitle="Commander" />
+        data={cartItems}
+        keyExtractor={(listing) => listing.id.toString()}
+        // toString() very important
+        renderItem={({ item }) => (
+          <CartItem title = {item.title} quantity = {item.quantity} price = {item.price} />
+        )}
+      />
+
+      <View style={styles.total}>
+        <AppText style={styles.totalText}>{"TOTAL: " + total}</AppText>
+        <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
+      </View>
+      
+      <AppButton title="Commander" />
      </ImageBackground>
     </Screen>
   );
@@ -67,6 +86,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     borderRadius: 100
+  },
+  total: {
+    alignSelf: "center",
+    backgroundColor: colors.mainWhite,
+    width: "90%",
+    borderRadius: 10,
+    flexDirection: "row"
+  },
+  doubloon: {
+    width:25,
+    height:25
+  },
+  totalText: {
+    fontFamily: 'Marhey',
+    paddingLeft: 5
   }
 
 });

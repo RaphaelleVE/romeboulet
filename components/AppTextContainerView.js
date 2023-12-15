@@ -28,6 +28,7 @@ function AppTextContainerView({ icon, text, styleParam="default" , ...otherProps
         <AppText
           placeholderTextColor={defaultStyles.colors.medium}
           style={styles.text}
+          {...otherProps}
         
         >{text}</AppText>
       </View>

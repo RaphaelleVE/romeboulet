@@ -10,7 +10,7 @@ import AppTextContainerView from "./AppTextContainerView"
 
 
 
-function CartItem({ name, width, title, ...otherProps }) {
+function CartItem({ name, width, title, quantity, price, ...otherProps }) {
 
   const [loaded] = useFonts({
     Marhey: require('../assets/fonts/Marhey-Light.ttf')
@@ -20,27 +20,36 @@ function CartItem({ name, width, title, ...otherProps }) {
 
   if (loaded) {
     return (
-      <>
         <View style={styles.line}>
-        <AppTextContainerView
-        styleParam={styles.product}
-        text={title}
-        />
-        <AppTextContainerView
-        styleParam={styles.number}
-        />
-        <AppButton  styleParam={styles.button} />
+          <AppTextContainerView
+            numberOfLines={1}
+            styleParam={styles.product}
+            text={title}
+          />
+          <AppTextContainerView
+            styleParam={styles.number}
+            text={"x" + quantity}
+            numberOfLines={1}
+          />
+         <AppTextContainerView
+            styleParam={styles.price}
+            text={price*quantity}
+            numberOfLines={1}
+          />
+          <AppButton styleParam={styles.button} title={"-"}/>
         </View>
-      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
   line :{
-    paddingRight: 20,
-    paddingLeft: 20,
+    paddingLeft: 10,
+    marginHorizontal:15,
+    marginVertical:8,
     flexDirection: "row",
+    backgroundColor: colors.mainWhite,
+    borderRadius: 30
   },
   text: {
     fontFamily: 'Marhey',
@@ -49,33 +58,27 @@ const styles = StyleSheet.create({
   },
   button : {
     backgroundColor: colors.mainBrown,
-    borderRadius: 0,
     justifyContent: "center",
     alignItems: "center",
     width: "15%",
-    marginVertical: 10,
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
+    marginVertical: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 30,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 30,
   },
   product: {
-    backgroundColor: colors.mainWhite,
     borderRadius: 0,
-    flexDirection: "row",
-    padding: 15,
-    width: "65%",
+    width: "40%",
     marginVertical: 10,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
   },
   number: {
-    backgroundColor: colors.danger,
-    borderRadius: 0,
-    flexDirection: "row",
-    padding: 15,
     width: "20%",
     marginVertical: 10,
   },
-
+  price:{
+    width: "25%",
+  }
 });
 
 export default CartItem;
