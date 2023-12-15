@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, FlatList, ImageBackground,Image } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import Screen from "../components/Screen";
@@ -44,19 +44,20 @@ function CartScreen({navigation}) {
      <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
       <FlatList
         style={styles.screen}
-          data={cartItems}
-          keyExtractor={(listing) => listing.id.toString()}
-          // toString() very important
-          renderItem={({ item }) => (
-            <CartItem title = {item.title} quantity = {item.quantity} price = {item.price} />
-          )}
-        />
-        <View style={styles.total}>
+        data={cartItems}
+        keyExtractor={(listing) => listing.id.toString()}
+        // toString() very important
+        renderItem={({ item }) => (
+          <CartItem title = {item.title} quantity = {item.quantity} price = {item.price} />
+        )}
+      />
+
+      <View style={styles.total}>
         <AppText style={styles.totalText}>{"TOTAL: " + total}</AppText>
         <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
-        </View>
-           <AppButton customTitle="Commander" />
-
+      </View>
+      
+      <AppButton title="Commander" />
      </ImageBackground>
     </Screen>
   );

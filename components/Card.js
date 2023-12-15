@@ -51,22 +51,28 @@ function Card({ onPress, image, subTitle, title, id }) {
   };
 
   return (
-    <TouchableOpacity
-    onPress={onPress}>
-    <View style={styles.card} >
-      <View style={styles.detailContainer}>
-        <AppText style={styles.text}>{title}</AppText>
-        <Image style={styles.image} source={image} />
-      </View>
-      <View style={styles.subTitleContainer}>
-      <AppText color="secondary">{subTitle}</AppText>
-      <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
-      </View>
-      <View style={styles.button}>
-      <AppButton customTitle="Ajouter au Panier" color="mainBrown"
-        textColor="mainWhite" styleParam={styles.buttonStyles} onPress={handleAddToCart}></AppButton>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.card} >
+        <View style={styles.detailContainer}>
+          <AppText style={styles.text}>{title}</AppText>
+          <Image style={styles.image} source={image} />
         </View>
-    </View>
+
+        <View style={styles.subTitleContainer}>
+          <AppText color="secondary">{subTitle}</AppText>
+          <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
+        </View>
+
+        <View>
+          <AppButton 
+            title="Add to cart" 
+            color="mainBrown"
+            textColor="mainWhite"
+            onPress={handleAddToCart}
+            styleParam={styles.button}
+          />
+        </View>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -99,17 +105,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Marhey',
   },
   button: {
-    alignItems: "center",
-    alignContent:"center",
-  },
-  buttonStyles: {
-    backgroundColor: colors.mainBrown,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 15,
-    width: "90%",
-    marginVertical: 10,
+    padding: 8, 
+    width: '100%', 
+    borderRadius: 0, 
+    marginBottom: 0
   },
   doubloon: {
     width:25,

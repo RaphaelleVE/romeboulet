@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList, ImageBackground, Image, ScrollView} from "react-native";
+import { View, StyleSheet, ImageBackground, Image, ScrollView} from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
-import routes from "../navigation/routes";
 import * as FileSystem from 'expo-file-system';
 
 function ProductDetailScreen({navigation, route}) {
@@ -58,24 +57,46 @@ function ProductDetailScreen({navigation, route}) {
   return (
     <Screen>
       <ImageBackground style = {styles.background} source={require("../assets/bg-moche.png")}>
-      <AppButton styleParam={styles.backButtons} customTitle="BACK" onPress={() => navigation.goBack()}></AppButton>
+        <AppButton 
+          styleParam={styles.backButtons} 
+          title="Back" 
+          color="mainWhite"
+          textColor="mainBrown"
+          onPress={() => navigation.goBack()}
+        />
+
         <ScrollView style = {styles.scrollView}>
           <AppText numberOfLines={2} adjustsFontSizeToFit style={styles.title}>{route.params.product.title}</AppText>
           <Image style={styles.picture} source={route.params.product.image}/>
           <AppText style={styles.description}>{route.params.product.description}</AppText>
+
           <View style={styles.priceTag}>
             <AppText style={styles.price}>Prix a l'unité : {route.params.product.price}</AppText>
             <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
           </View>
+
           <View style={styles.quantitySetter}>
             <AppText style={styles.price}>Quantitée : {quantity}</AppText>
-            <AppButton styleParam={styles.buttons} customTitle="-" onPress={decrementQuantity}></AppButton>
-            <AppButton styleParam={styles.buttons} customTitle="+" onPress={incrementQuantity}></AppButton>
+            <AppButton 
+              styleParam={styles.buttons} 
+              title="-" 
+              onPress={decrementQuantity}
+            />
+            <AppButton 
+              styleParam={styles.buttons} 
+              title="+" 
+              onPress={incrementQuantity}
+            />
           </View>
+
           <View style={styles.orderButton}>
-          <AppButton styleParam={styles.orderButton} customTitle="Ajouter au Panier" onPress={handleAddToCart}></AppButton>
+            <AppButton 
+              title="Add to cart" 
+              onPress={handleAddToCart}
+              styleParam={{marginTop: 50}}
+            />
           </View>
-          </ScrollView>
+        </ScrollView>
       </ImageBackground>
     </Screen>
   );
@@ -131,7 +152,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontFamily: "Marhey",
-    paddingLeft: 10,
+    paddingHorizontal: 10,
     paddingRight: 5,
   },
   priceTag: {
@@ -141,9 +162,11 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   buttons: {
-    width:100,
+    width:80,
     height:30,
     marginVertical:0,
+    marginHorizontal: 2,
+    padding: 0
   },
   backButtons: {
     width:100,

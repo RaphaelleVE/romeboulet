@@ -22,20 +22,21 @@ function CartItem({ name, width, title, quantity, price, ...otherProps }) {
     return (
         <View style={styles.line}>
           <AppTextContainerView
-          numberOfLines={1}
-          styleParam={styles.product}
-          text={title}/>
-        <AppTextContainerView
-        styleParam={styles.number}
-        text={"x" + quantity}
-        numberOfLines={1}
-        />
+            numberOfLines={1}
+            styleParam={styles.product}
+            text={title}
+          />
+          <AppTextContainerView
+            styleParam={styles.number}
+            text={"x" + quantity}
+            numberOfLines={1}
+          />
          <AppTextContainerView
-        styleParam={styles.price}
-        text={price*quantity}
-        numberOfLines={1}
-        />
-        <AppButton  styleParam={styles.button} customTitle={"-"}/>
+            styleParam={styles.price}
+            text={price*quantity}
+            numberOfLines={1}
+          />
+          <AppButton styleParam={styles.button} title={"-"}/>
         </View>
     );
   }
@@ -44,7 +45,8 @@ function CartItem({ name, width, title, quantity, price, ...otherProps }) {
 const styles = StyleSheet.create({
   line :{
     paddingLeft: 10,
-    marginTop:10,
+    marginHorizontal:15,
+    marginVertical:8,
     flexDirection: "row",
     backgroundColor: colors.mainWhite,
     borderRadius: 30
@@ -59,8 +61,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "15%",
-    marginVertical: 10,
+    marginVertical: 0,
+    borderTopLeftRadius: 0,
     borderTopRightRadius: 30,
+    borderBottomLeftRadius: 0,
     borderBottomRightRadius: 30,
   },
   product: {
