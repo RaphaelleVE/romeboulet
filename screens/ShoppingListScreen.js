@@ -98,7 +98,6 @@ function ShoppingListScreen({navigation}) {
 
 
 
-
   return (
     <Screen>
       <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
