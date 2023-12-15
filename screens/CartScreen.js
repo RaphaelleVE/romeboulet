@@ -5,13 +5,14 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 import CartItem from "../components/CartItem";
 import AppButton from "../components/AppButton";
-import * as cartData from '../test.json';
 import * as FileSystem from 'expo-file-system';
+import AppText from "../components/AppText";
 
 
 function CartScreen({navigation}) {
 
   const [cartItems, setCartItems] = useState([]);
+  const [total, setTotal] = useState();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -20,8 +21,13 @@ function CartScreen({navigation}) {
         console.log("reload cart");
         const path = FileSystem.documentDirectory + '/shoppingList.json';
         const content = await FileSystem.readAsStringAsync(path);
+        let tempTotal = 0;
         const data = JSON.parse(content);
         setCartItems(data.cart);
+        data.cart.map((item) => { 
+          console.log(item)
+          tempTotal += item.price * item.quantity})
+          setTotal(tempTotal);
       } catch (error) {
         console.error("Erreur lors du chargement des données JSON :", error);
       }
@@ -42,10 +48,15 @@ function CartScreen({navigation}) {
           keyExtractor={(listing) => listing.id.toString()}
           // toString() very important
           renderItem={({ item }) => (
-            <CartItem title = {item.title}/>
+            <CartItem title = {item.title} quantity = {item.quantity} price = {item.price} />
           )}
         />
+        <View style={styles.total}>
+        <AppText style={styles.totalText}>{"TOTAL: " + total}</AppText>
+        <Image style={styles.doubloon} source={require("../assets/doubloons.png")} />
+        </View>
            <AppButton customTitle="Commander" />
+
      </ImageBackground>
     </Screen>
   );
@@ -75,6 +86,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     borderRadius: 100
+  },
+  total: {
+    alignSelf: "center",
+    backgroundColor: colors.mainWhite,
+    width: "90%",
+    borderRadius: 10,
+    flexDirection: "row"
+  },
+  doubloon: {
+    width:25,
+    height:25
+  },
+  totalText: {
+    fontFamily: 'Marhey',
+    paddingLeft: 5
   }
 
 });

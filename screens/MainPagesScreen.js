@@ -11,11 +11,6 @@ function MainPagesScreen({navigation}) {
       try {
         const shoppingListData = {
           cart: [
-            {  "id": 1,
-            "title": "Tonneaurhrhzhzrhzrx de Grog",
-            "price": 100,
-            "quantity": 10}
-            // Ajoutez d'autres éléments si nécessaire
           ],
         };
 

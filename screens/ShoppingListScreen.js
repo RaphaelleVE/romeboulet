@@ -5,8 +5,6 @@ import Screen from "../components/Screen";
 import Card from "../components/Card";
 import routes from "../navigation/routes";
 
-
-
 const listings = [
   {
     id: 1,
@@ -96,8 +94,6 @@ const listings = [
 
 function ShoppingListScreen({navigation}) {
 
-
-
   return (
     <Screen>
       <ImageBackground style={styles.background} source={require("../assets/bg-moche.png")}>
@@ -110,8 +106,8 @@ function ShoppingListScreen({navigation}) {
             <Card
               title={item.title}
               subTitle={item.price}
-              image={item.image}
-              description={item.description}
+              image= {item.image}
+              id={item.id}
               onPress={() => navigation.navigate(routes.PRODUCTDETAILSCREEN,{ product : item })}
             />
           )}

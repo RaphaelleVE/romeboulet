@@ -5,50 +5,10 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
-import * as cartData from '../test.json';
 import * as FileSystem from 'expo-file-system';
 
-
-
-const listings = [
-  {
-    id: 1,
-    title: "Tonneaux de Grog",
-    price: 100,
-    description: "Délicieux tonneaux de grog issue de la réserve personelle du capitaine Pendragon",
-    image: require("../assets/baril_Grog.png"),
-  },
-  {
-    id: 2,
-    title: "Boulets de canon",
-    price: 10,
-    description: "De bons boulets (je ne parle pas de vos matelots) utile pour casser du navire",
-    image: require("../assets/cannon_ball.png"),
-  },
-  {
-    id: 3,
-    title: "Noix de Coco",
-    price: 2,
-    description: "Noix de coco, idéale pour se raffraichir en pleine mer! a consommer avec modération",
-    image: require("../assets/coconut.png"),
-  },
-  {
-    id: 4,
-    title: "Bananes",
-    price: 2,
-    description: "Le véritable snack du bon pirate, permet de se nourrir peu importe la situation",
-    image: require("../assets/banana.jpg"),
-  },
-  {
-    id: 5,
-    title: "Bouteilles de Rhum",
-    price: 20,
-    description: "caisse de bouteille de rhum du sailor's bounty, a consommer sans aucune modération ! ",
-    image: require("../assets/rhum_Bottles.png"),
-  }];
-
 function ProductDetailScreen({navigation, route}) {
-   let [quantity, setQuantity] = useState(0);
+   let [quantity, setQuantity] = useState(1);
 
    const handleAddToCart = async () => {
     try {
@@ -59,9 +19,19 @@ function ProductDetailScreen({navigation, route}) {
 
       // Convertir le contenu en objet JSON
       const currentData = JSON.parse(currentContent);
-
+      // vérifie si l'élément existe deja dans la panier, si oui on incrémente justqe sa quantitée
+      const elementExists = currentData.cart.findIndex(product => product.id === route.params.product.id);
+      if(elementExists === -1){
       // Ajouter de nouvelles données à l'objet JSON
-      currentData.cart.push(route.params.product);
+      currentData.cart.push({
+        "id": route.params.product.id,
+        "title": route.params.product.title,
+        "price": route.params.product.price,
+        "quantity": quantity
+      });
+    }else{
+      currentData.cart[elementExists].quantity += quantity ;
+    }
 
       // Convertir l'objet JSON mis à jour en chaîne JSON
       const updatedContent = JSON.stringify(currentData);
