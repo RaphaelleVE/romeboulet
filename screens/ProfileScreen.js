@@ -71,9 +71,9 @@ function ProfileScreen({navigation}) {
   //Update the user's email 
   const handleUpdateEmail = () => {
     verifyBeforeUpdateEmail(currentUser, email)
-      .then(alert('Email updated ! An email has been send to verify the new one.'))
+      .then(alert('Adresse modifiée ! Un email vient de vous être envoyé.'))
       .catch(e => {
-        alert('An error occurs...')
+        alert('Une erreur est apparue...')
         console.error(e);
       })
   }
@@ -81,9 +81,9 @@ function ProfileScreen({navigation}) {
   //Update the user's password
   const handleUpdatePassword = () => {
     sendPasswordResetEmail(auth, email)
-      .then(alert('An email has been send'))
+      .then(alert('Un mail a été envoyé'))
       .catch(e => {
-        alert('An error occurs...')
+        alert('Une erreur est apparue...')
         console.error(e);
       })
   }
@@ -123,7 +123,7 @@ function ProfileScreen({navigation}) {
 
           <ButtonContainer>
             <AppButton 
-              title="Update email"
+              title="Modifier email"
               onPress={handleUpdateEmail}
               styleParam={{marginBottom: 20, marginTop: 0}}
             />
@@ -132,19 +132,19 @@ function ProfileScreen({navigation}) {
 
         <ButtonContainer>
           <AppButton 
-            title="Change picture"
+            title="Modifier photo pirate"
             onPress={pickImage}
             styleParam={{marginBottom: 5, marginTop: 20}}
           />
 
           <AppButton 
-            title="Change password"
+            title="Modifier mot de passe"
             onPress={handleUpdatePassword}
             styleParam={{marginTop: 5, marginBottom: 0}}
           />
           
           <AppButton 
-            title="Logout"
+            title="Déconnexion"
             color="primary"
             textColor="mainWhite"
             onPress={handleLogout}

@@ -65,7 +65,7 @@ function Card({ onPress, image, subTitle, title, id }) {
 
         <View>
           <AppButton 
-            title="Add to cart" 
+            title="Ajouter au panier" 
             color="mainBrown"
             textColor="mainWhite"
             onPress={handleAddToCart}

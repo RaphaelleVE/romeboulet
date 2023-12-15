@@ -69,7 +69,7 @@ function LoginScreen({navigation}) {
             <AppFormField
               name="password"
               state={password}
-              placeholder="Password"
+              placeholder="Mot de passe"
               secureTextEntry
               textContentType="password"
               onChangeText={text => setPassword(text)}
@@ -78,11 +78,11 @@ function LoginScreen({navigation}) {
 
           <ButtonContainer>
             <AppButton 
-              title="Login"
+              title="Connexion"
               onPress={handleLogin}
             />
             <AppButton 
-              title="Sign up"
+              title="Inscription"
               color="mainWhite"
               textColor="mainBrown"
               onPress={() => navigation.navigate(routes.SIGNUP)}

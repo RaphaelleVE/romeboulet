@@ -27,7 +27,7 @@ function SignupScreen({navigation}) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(userCredentials => {
           const user = userCredentials.user;
-          console.log('Registered with : ', user.email);
+          
           setEmail('');
           setPassword('');
           setConfirmPassword('');
@@ -63,7 +63,7 @@ function SignupScreen({navigation}) {
             <AppFormField
               name="password"
               state={password}
-              placeholder="Password"
+              placeholder="Mot de passe"
               secureTextEntry
               textContentType="password"
               onChangeText={text => setPassword(text)}
@@ -71,7 +71,7 @@ function SignupScreen({navigation}) {
             <AppFormField
               name="confirmPassword"
               state={confirmPassword}
-              placeholder="Confirm password"
+              placeholder="Confirmation du mot de passe"
               secureTextEntry
               textContentType="password"
               onChangeText={text => setConfirmPassword(text)}
@@ -80,11 +80,11 @@ function SignupScreen({navigation}) {
 
           <ButtonContainer>
             <AppButton
-              title="Sign up"
+              title="Inscription"
               onPress={handleSignUp}
             />
             <AppButton 
-              title="Login"
+              title="Connexion"
               color="mainWhite"
               textColor="mainBrown"
               onPress={() => navigation.navigate(routes.LOGIN)}

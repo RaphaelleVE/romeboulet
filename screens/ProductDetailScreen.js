@@ -57,7 +57,7 @@ function ProductDetailScreen({navigation, route}) {
       <ImageBackground style = {styles.background} source={require("../assets/bg-moche.png")}>
         <AppButton 
           styleParam={styles.backButtons} 
-          title="Back" 
+          title="Retour" 
           color="mainWhite"
           textColor="mainBrown"
           onPress={() => navigation.goBack()}
@@ -87,7 +87,7 @@ function ProductDetailScreen({navigation, route}) {
 
           <View style={styles.orderButton}>
             <AppButton 
-              title="Add to cart" 
+              title="Ajouter au panier" 
               onPress={handleAddToCart}
               styleParam={{marginTop: 50, width: '95%'}}
             />
