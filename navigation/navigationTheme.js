@@ -6,6 +6,6 @@ export default {
   colors: {
     ...DefaultTheme.colors,
     primary: colors.mainWhite,
-    background: colors.mainBrown,
+    background: "../assets/bg-moche.png",
   },
 };

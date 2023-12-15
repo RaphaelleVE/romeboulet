@@ -1,63 +1,98 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Image, ImageBackground } from "react-native";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
 import Form from "../components/forms/Form";
-import FormField from "../components/forms/FormField";
-import SubmitButton from "../components/forms/SubmitButton";
 import AppButton from "../components/AppButton";
 import routes from "../navigation/routes";
-
+import { auth } from "../firebaseConfig";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import AppFormField from "../components/forms/FormField";
+import InputContainer from "../components/forms/InputContainer";
+import ButtonContainer from "../components/forms/ButtonContainer";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  password: Yup.string().required().min(6).label("Password"),
 });
 
-
 function LoginScreen({navigation}) {
-    return (
-      <Screen >
-         <ImageBackground blurRadius={3.5} style={styles.background} source={require("../assets/bg-login.png")}>
-         <Image style={styles.logo} source={require("../assets/logo-base.png")} />
-         <Form
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={validationSchema}
-      >
-        <FormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
-        />
-        <FormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="lock"
-          name="password"
-          placeholder="Password"
-          secureTextEntry
-          textContentType="password"
-        />
-        {/* <SubmitButton title="Login" /> */}
-        <AppButton title="Login"
-        onPress={() => navigation.navigate(routes.MAINPAGESSCREEN )}
-        />
-        <AppButton 
-        title="Sign up"
-        color="mainWhite"
-        textColor="mainBrown"
-         onPress={() => navigation.navigate(routes.SIGNUP)}
-         />
-      </Form>
-        </ImageBackground>
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  //use Effect called when page is generated
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+
+    //If user is connected, change the page to profile
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        () => navigation.navigate(routes.MAINPAGESSCREEN);
+      }
+    });
+
+    return unsubscribe;
+  }, [])
+
+  //When user is connected, change the page to profile
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredentials => {
+        setEmail('');
+        setPassword('');
+        const user = userCredentials.user;
+        console.log('Logged in with : ', user.email);
+        navigation.navigate(routes.MAINPAGESSCREEN)
+      })
+      .catch(error => alert(error.message))
+  }
+
+  return (
+    <Screen >
+      <ImageBackground blurRadius={3.5} style={styles.background} source={require("../assets/bg-login.png")}>
+        <Image style={styles.logo} source={require("../assets/logo-base.png")} />
+
+        <Form
+          initialValues={{ email: email, password: password }}
+          onSubmit={(values) => console.log(values)}
+          validationSchema={validationSchema}
+        >
+          <InputContainer>
+            <AppFormField
+              name="email"
+              state={email}
+              placeholder="Email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
+              onChangeText={text => setEmail(text)}
+            />
+            <AppFormField
+              name="password"
+              state={password}
+              placeholder="Mot de passe"
+              secureTextEntry
+              textContentType="password"
+              onChangeText={text => setPassword(text)}
+            />
+          </InputContainer>
+
+          <ButtonContainer>
+            <AppButton 
+              title="Connexion"
+              onPress={handleLogin}
+            />
+            <AppButton 
+              title="Inscription"
+              color="mainWhite"
+              textColor="mainBrown"
+              onPress={() => navigation.navigate(routes.SIGNUP)}
+            />
+          </ButtonContainer>
+        </Form>
+      </ImageBackground>
     </Screen>
   );
-  
 }
 
 const styles = StyleSheet.create({
@@ -72,11 +107,6 @@ const styles = StyleSheet.create({
       top: 70,
       alignItems: "center",
       position: "absolute",
-    },
-    text : {
-        color : "#FFFEF7",
-        paddingBottom : 10,
-        textAlign: 'right'
     }
   });
 

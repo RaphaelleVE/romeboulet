@@ -2,6 +2,7 @@ import React from "react";
 import Constants from "expo-constants";
 import { StyleSheet, SafeAreaView, View } from "react-native";
 
+//component used as screen base
 function Screen({ children, style }) {
   return (
     <SafeAreaView style={[styles.screen, style]}>

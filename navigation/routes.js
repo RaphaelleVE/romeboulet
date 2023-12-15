@@ -6,5 +6,5 @@ CARTSCREEN: "CartScreen",
 MAINPAGESSCREEN: "MainPagesScreen",
 PROFILESCREEN: "ProfileScreen",
 PRODUCTDETAILSCREEN: "ProductDetailScreen",
-
+SHOPPINGMANAGERSCREEN: "ShoppingManagerScreen",
 });

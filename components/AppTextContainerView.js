@@ -4,9 +4,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import defaultStyles from "../config/styles";
 import colors from "../config/colors";
+import AppText from "./AppText";
 
-//component for text input
-function AppTextInput({ icon, width = "100%", styleParam="default" , ...otherProps }) {
+//component created for text view
+function AppTextContainerView({ icon, text, styleParam="default" , ...otherProps }) {
   const [loaded] = useFonts({
     Marhey: require('../assets/fonts/Marhey-Light.ttf')
   })
@@ -15,7 +16,7 @@ function AppTextInput({ icon, width = "100%", styleParam="default" , ...otherPro
 
   if (loaded) {
     return (
-      <View style={[styles.container, { width }, styleParam]}>
+      <View style={[styles.container,styleParam]}>
         {icon && (
           <MaterialCommunityIcons
             name={icon}
@@ -24,11 +25,12 @@ function AppTextInput({ icon, width = "100%", styleParam="default" , ...otherPro
             style={styles.icon}
           />
         )}
-        <TextInput
+        <AppText
           placeholderTextColor={defaultStyles.colors.medium}
           style={styles.text}
           {...otherProps}
-        />
+        
+        >{text}</AppText>
       </View>
     );
   }
@@ -53,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppTextInput;
+export default AppTextContainerView;
